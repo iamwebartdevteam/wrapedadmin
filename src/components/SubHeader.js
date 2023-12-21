@@ -9,9 +9,7 @@ const SubHeader = () => {
             href="javascript:void(0);"
             class="sidebarCollapse"
             data-placement="bottom"
-          >
-            <i class="las la-bars"></i>
-          </a>
+          ></a>
           <ul class="navbar-nav flex-row">
             <li>
               <div class="page-header">

@@ -158,6 +158,7 @@ export const song_listing = async (header) => {
 export const template_listing = async (data, header) => {
   try {
     const url = c.GETSONGTEMPLETE + "/" + data;
+    console.log("url", url);
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });
@@ -301,6 +302,28 @@ export const payment_history = async (header) => {
   try {
     const url = c.SIGNUP + "/paymenthistory";
     console.log("url", url);
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const getSongByid = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/getsong/" + data;
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const update_songs = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/updatesong";
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });

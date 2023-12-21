@@ -94,7 +94,7 @@ const PaymentHistory = ({ setIsLogin }) => {
                 </thead>
                 <tbody>
                   {data.map((item, index) => (
-                    <tr>
+                    <tr key={index}>
                       <td> {item.transaction_id} </td>
                       <td> {item.username} </td>
                       <td>$ {item.amount}</td>

@@ -19,6 +19,7 @@ import SongAdd from "../page/Song/SongAdd";
 import SongTemplete from "../page/Song/SongTemplete";
 import TempleteListing from "../page/Song/TempleteListing";
 import PaymentHistory from "../page/PaymentHistory";
+import EditSong from "../page/EditSong";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -57,6 +58,7 @@ const AppRoute = () => {
                   />
                   {/* <Route path="/add-music" element={<SongAdd />} /> */}
                   <Route path="/add-music" element={<AddSong />} />
+                  <Route path="/edit-song" element={<EditSong />} />
                   <Route path="/add-templete" element={<SongTemplete />} />
                   <Route path="/templete-list" element={<TempleteListing />} />
                   <Route path="/payment-history" element={<PaymentHistory />} />

@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import * as API from "../api/index";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Select from "react-dropdown-select";
 import { MESSAGE, header } from "../schemas/Validation";
@@ -20,7 +20,8 @@ const initialData = {
   amount: "",
 };
 
-const AddSong = () => {
+const EditSong = () => {
+  const loaction = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
@@ -179,7 +180,7 @@ const AddSong = () => {
         //templete: templeteData,
       };
       console.log("reqObj", reqObj);
-      const response = await API.add_songs(reqObj, header);
+      const response = await API.update_songs(reqObj, header);
       console.log("response", response);
       if (response.data.success === 1) {
         //setIsLoading(false);
@@ -197,6 +198,25 @@ const AddSong = () => {
     setIsOpen(false);
     //setSearchData("");
   };
+
+  const commonDataTable = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.getSongByid(loaction.state.id, header);
+      console.log("songList", response);
+      setFormData(response.data.data);
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    commonDataTable();
+  }, []);
 
   const btnDisabal =
     !formData.name ||
@@ -221,7 +241,7 @@ const AddSong = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                <h4>Add Music</h4>
+                <h4>Edit Music</h4>
               </div>
             </div>
           </div>
@@ -229,8 +249,8 @@ const AddSong = () => {
             <div className="row">
               <div className="normal">
                 <div className="row">
-                  <div className="col-md-9">
-                    <div className="row borderUS">
+                  <div className="col-md-12">
+                    <div className="row ">
                       <div className="col-md-4">
                         <div class="form-group">
                           <label>
@@ -247,7 +267,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Choose Occasion
@@ -295,7 +315,7 @@ const AddSong = () => {
                           </>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Choose Genre
@@ -344,7 +364,7 @@ const AddSong = () => {
                           </>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Choose Mood
@@ -560,7 +580,7 @@ const AddSong = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-3">
+                  <div className="col-md-3 d-none">
                     <h6>Occasion Tag </h6>
                     <ul className="chooesTeg">
                       {tagArry.map((item, key) => {
@@ -606,4 +626,4 @@ const AddSong = () => {
   );
 };
 
-export default AddSong;
+export default EditSong;

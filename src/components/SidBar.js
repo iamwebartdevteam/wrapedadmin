@@ -17,6 +17,7 @@ const SidBar = () => {
                 class="main-item dropdown-toggle bs-tooltip"
               >
                 <i class="las la-home"></i>
+                <span>Dashboard</span>
               </NavLink>
             </li>
             <li class="menu">
@@ -28,6 +29,7 @@ const SidBar = () => {
                 title="User List"
               >
                 <i class="las la-user"></i>
+                <span>User list</span>
               </NavLink>
             </li>
             <li class="menu">
@@ -39,6 +41,7 @@ const SidBar = () => {
                 title="Order"
               >
                 <i class="las la-shopping-cart"></i>
+                <span>Total Order</span>
               </NavLink>
             </li>
             <li class="menu">
@@ -52,6 +55,7 @@ const SidBar = () => {
               >
                 <span class="new-notification"></span>
                 <i class="las la-music"></i>
+                <span>All Song</span>
               </NavLink>
             </li>
             <li class="menu">
@@ -64,6 +68,7 @@ const SidBar = () => {
                 title="Categories"
               >
                 <i class="las la-list"></i>
+                <span>Categories</span>
               </NavLink>
             </li>
             {/* <li class="menu">
@@ -87,6 +92,7 @@ const SidBar = () => {
                 class="main-item dropdown-toggle bs-tooltip"
               >
                 <i class="las la-money-bill"></i>
+                <span>Payment History</span>
               </NavLink>
             </li>
             {/* <li class="menu">

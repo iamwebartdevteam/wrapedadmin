@@ -16,6 +16,7 @@ const TempleteListing = ({ setIsLogin }) => {
     const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.template_listing(loaction.state.id, header);
+      console.log("response", response);
       setData(response.data);
       if (response.data.is_login === false) {
         localStorage.removeItem("isLogin");

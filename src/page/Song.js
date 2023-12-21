@@ -194,7 +194,13 @@ const Song = ({ setIsLogin }) => {
                               class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
                             >
                               <PlusCircle size={20} />
-                              {/* <Edit2 size={20} /> */}
+                            </Link>
+                            <Link
+                              state={{ id: item.id }}
+                              to="/edit-song"
+                              className="align-items-center mr-2 btn btn-success d-flex font-20 px-2"
+                            >
+                              <Edit2 size={20} colo />
                             </Link>
                             <button
                               type="button"

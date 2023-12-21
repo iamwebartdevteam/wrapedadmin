@@ -235,7 +235,7 @@ code {
   flex-grow: 8;
   margin-top: 63px;
   margin-bottom: 0;
-  margin-left: 130px;
+  margin-left: 230px;
   transition: 0.6s;
 }
 .sub-sidebar-open #content {
@@ -1372,7 +1372,7 @@ code {
   font-weight: 700;
 }
 .sidebar-wrapper {
-  width: 110px;
+  width: 200px;
   position: fixed;
   z-index: 1028;
   transition: 0.6s;
@@ -1423,12 +1423,15 @@ code {
   height: 66px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   background: transparent;
   transition: all ease 0.4s;
   width: 100%;
-  text-align: center;
   z-index: 2;
+}
+.sidebar-wrapper .menu-categories li.menu > a span {
+  display: inline-block;
+  margin-left: 5px;
 }
 .sidebar-wrapper .menu-categories li.menu > a:hover,
 .sidebar-wrapper .menu-categories li.menu > a.active {
