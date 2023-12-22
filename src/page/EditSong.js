@@ -169,19 +169,19 @@ const EditSong = () => {
     try {
       const reqObj = {
         name: formData.name,
-        mood: dataArry3,
-        occasion: dataArry2,
-        genre: dataArry,
+        // mood: dataArry3,
+        // occasion: dataArry2,
+        // genre: dataArry,
         description: formData.description,
         music_file: imageData,
-        duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
+        id: loaction.state.id,
         //templete: templeteData,
       };
       console.log("reqObj", reqObj);
       const response = await API.update_songs(reqObj, header);
-      console.log("response", response);
+      console.log("update_songs", response);
       if (response.data.success === 1) {
         //setIsLoading(false);
         MESSAGE(response.data.msg, 1);
@@ -429,7 +429,7 @@ const EditSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Minutes
@@ -445,7 +445,7 @@ const EditSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Second
@@ -616,7 +616,7 @@ const EditSong = () => {
                 type="reset"
                 class="btn btn-success mr-2"
               >
-                Submit
+                Update
               </button>
             )}
           </div>

@@ -323,8 +323,8 @@ export const getSongByid = async (data, header) => {
 };
 export const update_songs = async (data, header) => {
   try {
-    const url = c.SIGNUP + "/updatesong";
-    const res = await axios.get(url, {
+    const url = c.SIGNUP + "/updatesong/" + data.id;
+    const res = await axios.patch(url, data, {
       headers: JSON.parse(header),
     });
     return res;
