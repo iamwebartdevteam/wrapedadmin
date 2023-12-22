@@ -1,5 +1,5 @@
 import React from "react";
-import { Edit2, PlusCircle, Trash2 } from "react-feather";
+import { Edit, Edit2, PlusCircle, Trash2 } from "react-feather";
 import * as API from "../../api/index";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -91,6 +91,13 @@ const TempleteListing = ({ setIsLogin }) => {
 
                         <td width="80">
                           <div className="d-flex justify-content-center">
+                            <Link
+                              to="/edit-templete"
+                              className="btn btn-info d-flex font-20 px-2 mr-2"
+                            >
+                              <Edit />
+                            </Link>
+
                             <button
                               type="button"
                               onClick={() => userDelete(item.id)}
