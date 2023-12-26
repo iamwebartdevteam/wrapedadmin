@@ -18,6 +18,7 @@ const initialData = {
 const EditTemplate = () => {
   const navigate = useNavigate();
   const loaction = useLocation();
+  const [chooseTamplete, setChooseTamplete] = useState([]);
 
   // ? Templete Type
   const [isTemplete, setIsTemplete] = useState(false);
@@ -132,13 +133,19 @@ const EditTemplate = () => {
   const getAlltemplete = async () => {
     try {
       const response = await API.getTempleteType(header);
-      // console.log("response", response);
+      const responsebyId = await API.getTempleteTypeId(
+        loaction.state.id,
+        header
+      );
+      console.log("responsebyId", responsebyId.data);
+      setChooseTamplete(responsebyId.data[0]);
       setTampleteType(response.data.data);
     } catch (error) {}
   };
 
   const templeteType = (e) => {
     const typeData = e.target.value;
+    setChooseTamplete("");
     setTempleteFilea("");
     setSampleData("");
     if (typeData === "4") {
@@ -395,7 +402,7 @@ const EditTemplate = () => {
                               onClick={addTemplete}
                               class="btn btn-success mr-2"
                             >
-                              Add Templete
+                              Update Templete
                             </button>
                           )}
                         </div>
@@ -856,23 +863,34 @@ const EditTemplate = () => {
               <div className="col-md-3">
                 <h5 className="mb-3">Templete type Added</h5>
                 <ul className="typeoftemplete">
-                  {templeteData === "4" ? (
-                    <li>
-                      <CheckCircle color="green" size="20" />
-                      <span>Intro-Middle-Outro</span>
-                    </li>
-                  ) : templeteData === "6" ? (
-                    <li>
-                      <CheckCircle color="green" size="20" />
-                      <span>Intro-Outro</span>
-                    </li>
-                  ) : templeteData === "5" ? (
-                    <li>
-                      <CheckCircle color="green" size="20" />
-                      <span>Happy birthday</span>
-                    </li>
+                  {chooseTamplete === "" ? (
+                    <>
+                      {templeteData === "4" ? (
+                        <li>
+                          <CheckCircle color="green" size="20" />
+                          <span>Intro-Middle-Outro</span>
+                        </li>
+                      ) : templeteData === "6" ? (
+                        <li>
+                          <CheckCircle color="green" size="20" />
+                          <span>Intro-Outro</span>
+                        </li>
+                      ) : templeteData === "5" ? (
+                        <li>
+                          <CheckCircle color="green" size="20" />
+                          <span>Happy birthday</span>
+                        </li>
+                      ) : (
+                        ""
+                      )}
+                    </>
                   ) : (
-                    ""
+                    <>
+                      <li>
+                        <CheckCircle color="green" size="20" />
+                        <span>{chooseTamplete.templeteType}</span>
+                      </li>
+                    </>
                   )}
                 </ul>
               </div>

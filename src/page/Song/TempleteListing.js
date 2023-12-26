@@ -92,6 +92,7 @@ const TempleteListing = ({ setIsLogin }) => {
                         <td width="80">
                           <div className="d-flex justify-content-center">
                             <Link
+                              state={{ id: item.id }}
                               to="/edit-templete"
                               className="btn btn-info d-flex font-20 px-2 mr-2"
                             >

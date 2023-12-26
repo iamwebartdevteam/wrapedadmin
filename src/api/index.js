@@ -332,3 +332,14 @@ export const update_songs = async (data, header) => {
     return e.response;
   }
 };
+export const getTempleteTypeId = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/getTemplate/" + data;
+    const res = await axios.get(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
