@@ -98,7 +98,7 @@ const EditTemplate = () => {
           amount: formData.amount,
         };
         console.log("reqObj", reqObj);
-        const response = await API.song_templeteAdd(reqObj, header);
+        const response = await API.updateTamplete(reqObj, header);
         console.log("response", response);
         if (response.data.success === 1) {
           setTempleteFilea("");

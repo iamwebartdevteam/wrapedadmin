@@ -301,7 +301,6 @@ export const order_delete = async (data, header) => {
 export const payment_history = async (header) => {
   try {
     const url = c.SIGNUP + "/paymenthistory";
-    console.log("url", url);
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });
@@ -336,6 +335,18 @@ export const getTempleteTypeId = async (data, header) => {
   try {
     const url = c.SIGNUP + "/getTemplate/" + data;
     const res = await axios.get(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const updateTamplete = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/updatetemplate/" + data;
+    const res = await axios.patch(url, data, {
       headers: JSON.parse(header),
     });
     return res;
