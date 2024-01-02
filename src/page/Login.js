@@ -23,6 +23,7 @@ const Login = ({ setIsLogin }) => {
     localStorage.setItem("isLogin", true);
     try {
       const response = await API.user_registration(data);
+      console.log("response", response);
       if (response.data.success === 1) {
         localStorage.setItem("isLogin", true);
         setIsLogin(localStorage.getItem("isLogin"));

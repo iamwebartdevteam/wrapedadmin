@@ -51,8 +51,9 @@ const EditTemplate = () => {
     reader.readAsDataURL(images);
   };
 
-  const handalerChanges = (e) => {
+  const handalerChanges = async (e) => {
     const { name, value } = e.target;
+
     setFormData({ ...formData, [name]: value });
   };
 
@@ -143,8 +144,17 @@ const EditTemplate = () => {
     } catch (error) {}
   };
 
-  const templeteType = (e) => {
+  const templeteType = async (e) => {
+    const header = localStorage.getItem("_tokenCode");
     const typeData = e.target.value;
+    try {
+      const reqObj = {
+        tempTypeId: typeData,
+        tempId: loaction.state.id,
+      };
+      const response = await API.gettempleteById(reqObj, header);
+      console.log("response", response);
+    } catch (error) {}
     setChooseTamplete("");
     setTempleteFilea("");
     setSampleData("");

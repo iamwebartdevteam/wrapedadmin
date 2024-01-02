@@ -354,3 +354,16 @@ export const updateTamplete = async (data, header) => {
     return e.response;
   }
 };
+export const gettempleteById = async (data, header) => {
+  try {
+    const url =
+      c.SIGNUP + "/gettemplatebytype/" + data.tempTypeId + "/" + data.tempId;
+    console.log("url", url);
+    const res = await axios.get(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
