@@ -69,7 +69,9 @@ const TempleteListing = ({ setIsLogin }) => {
                     <th>
                       <div class="th-content">Template Type</div>
                     </th>
-
+                    <th>
+                      <div class="th-content">Amount</div>
+                    </th>
                     <th>
                       <div class="th-content">Action</div>
                     </th>
@@ -87,6 +89,9 @@ const TempleteListing = ({ setIsLogin }) => {
                         <td> {item.name}</td>
                         <td>
                           <p>{item.templeteType}</p>
+                        </td>
+                        <td>
+                          <p>$ {item.amount}</p>
                         </td>
 
                         <td width="80">

@@ -11,7 +11,7 @@ const initialData = {
   mstart: "",
   messlength: "",
   songlength: "",
-  title: "",
+  name: "",
   amount: "",
 };
 
@@ -74,7 +74,7 @@ const EditTemplate = () => {
     if (templeteData === "4") {
       try {
         const reqObj = {
-          name: formData.title,
+          name: formData.name,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
@@ -94,8 +94,7 @@ const EditTemplate = () => {
             : formData.songlength > 60
             ? songlength
             : formData.songlength,
-
-          song: loaction.state.id,
+          templeteId: loaction.state.id,
           amount: formData.amount,
         };
         console.log("reqObj", reqObj);
@@ -115,11 +114,15 @@ const EditTemplate = () => {
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
-          songlength: formData.songlength,
-          song: loaction.state.id,
+          songlength: songlength
+            ? songlength
+            : formData.songlength > 60
+            ? songlength
+            : formData.songlength,
+          templeteId: loaction.state.id,
         };
         console.log("$%reqObj", reqObj);
-        const response = await API.song_templeteAdd(reqObj, header);
+        const response = await API.updateTamplete(reqObj, header);
         console.log("response", response);
         if (response.data.success === 1) {
           setTempleteFilea("");
@@ -147,6 +150,7 @@ const EditTemplate = () => {
   const templeteType = async (e) => {
     const header = localStorage.getItem("_tokenCode");
     const typeData = e.target.value;
+    setFormData("");
     try {
       const reqObj = {
         tempTypeId: typeData,
@@ -154,6 +158,11 @@ const EditTemplate = () => {
       };
       const response = await API.gettempleteById(reqObj, header);
       console.log("response", response);
+      if (response.data.success === 1) {
+        setFormData(response.data.data);
+      } else {
+        setFormData("");
+      }
     } catch (error) {}
     setChooseTamplete("");
     setTempleteFilea("");
@@ -165,7 +174,6 @@ const EditTemplate = () => {
     } else if (typeData === "6") {
       setTempleteData("6");
     }
-    console.log("typeData", typeData);
   };
 
   useEffect(() => {
@@ -221,8 +229,8 @@ const EditTemplate = () => {
                               type="text"
                               class="form-control"
                               placeholder="Enter here"
-                              value={formData.title}
-                              name="title"
+                              value={formData.name}
+                              name="name"
                               onChange={handalerChanges}
                             />
                           </div>

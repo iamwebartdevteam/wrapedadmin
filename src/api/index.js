@@ -345,7 +345,7 @@ export const getTempleteTypeId = async (data, header) => {
 
 export const updateTamplete = async (data, header) => {
   try {
-    const url = c.SIGNUP + "/updatetemplate/" + data;
+    const url = c.SIGNUP + "/updatetemplate/" + data.templeteId;
     const res = await axios.patch(url, data, {
       headers: JSON.parse(header),
     });
@@ -357,7 +357,7 @@ export const updateTamplete = async (data, header) => {
 export const gettempleteById = async (data, header) => {
   try {
     const url =
-      c.SIGNUP + "/gettemplatebytype/" + data.tempTypeId + "/" + data.tempId;
+      c.SIGNUP + "/gettemplatebytype/" + data.tempId + "/" + data.tempTypeId;
     console.log("url", url);
     const res = await axios.get(url, data, {
       headers: JSON.parse(header),

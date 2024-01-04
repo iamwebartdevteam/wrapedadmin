@@ -58,6 +58,7 @@ const SongTemplete = () => {
   const addTemplete = async () => {
     setIsTemplete(true);
     const hms = formData.mstart;
+
     var [minutes, seconds] = hms.split(".");
     const mstart = +minutes * 60 + +seconds;
 
