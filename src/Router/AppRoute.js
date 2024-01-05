@@ -21,6 +21,8 @@ import TempleteListing from "../page/Song/TempleteListing";
 import PaymentHistory from "../page/PaymentHistory";
 import EditSong from "../page/EditSong";
 import EditTemplate from "../page/Song/EditTemplate";
+import Testimonials from "../page/Testimonials/Testimonials";
+import AddTestimonials from "../page/Testimonials/AddTestimonials";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -71,6 +73,12 @@ const AppRoute = () => {
                   />
                   <Route path="/add-script" element={<AddScript />} />
                   <Route path="/edit-categories" element={<EditCategoris />} />
+
+                  <Route path="/testimonials" element={<Testimonials />} />
+                  <Route
+                    path="/add-testimonials"
+                    element={<AddTestimonials />}
+                  />
                 </Routes>
               </div>
             </div>

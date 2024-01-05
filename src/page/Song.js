@@ -87,7 +87,7 @@ const Song = ({ setIsLogin }) => {
                 <thead>
                   <tr>
                     <th>
-                      <div class="th-content">ID</div>
+                      <div class="th-content">ID d</div>
                     </th>
                     <th>
                       <div class="th-content"> Title</div>
@@ -136,7 +136,7 @@ const Song = ({ setIsLogin }) => {
                         </td>
                         <td width="200">
                           <ul className="p-0 moodTag">
-                            {item.genre.length === 0 ? (
+                            {/* {item.genre.length === 0 ? (
                               "N/A"
                             ) : (
                               <>
@@ -146,13 +146,13 @@ const Song = ({ setIsLogin }) => {
                                   </li>
                                 ))}
                               </>
-                            )}
+                            )} */}
                           </ul>
                         </td>
 
                         <td width="200">
                           <ul className="p-0 moodTag">
-                            {item.occasion.length === 0 ? (
+                            {/* {item.occasion.length === 0 ? (
                               "N/A "
                             ) : (
                               <>
@@ -162,12 +162,12 @@ const Song = ({ setIsLogin }) => {
                                   </li>
                                 ))}
                               </>
-                            )}
+                            )} */}
                           </ul>
                         </td>
                         <td width="200">
                           <ul className="p-0 moodTag">
-                            {item.mood.length === 0 ? (
+                            {/* {item.mood.length === 0 ? (
                               "N/A"
                             ) : (
                               <>
@@ -177,7 +177,7 @@ const Song = ({ setIsLogin }) => {
                                   </li>
                                 ))}
                               </>
-                            )}
+                            )} */}
                           </ul>
                         </td>
                         <td>$ {item.amount}:00</td>

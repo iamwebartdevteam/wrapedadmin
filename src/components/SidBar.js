@@ -95,18 +95,19 @@ const SidBar = () => {
                 <span>Payment History</span>
               </NavLink>
             </li>
-            {/* <li class="menu">
+            <li class="menu">
               <NavLink
-                to="/script-list"
+                to="/testimonials"
                 id="maps"
                 data-toggle="tooltip"
                 data-placement="right"
-                title="Script"
+                title="testimonials"
                 class="main-item dropdown-toggle bs-tooltip"
               >
                 <i class="las la-cog"></i>
+                Testimonials
               </NavLink>
-            </li> */}
+            </li>
           </ul>
         </nav>
       </div>
