@@ -18,6 +18,9 @@ const initialData = {
   minutes: "",
   second: "",
   amount: "",
+  mood: "",
+  genre: "",
+  occasion: "",
 };
 
 const EditSong = () => {
@@ -26,59 +29,14 @@ const EditSong = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
-  const [catagoriId, setCatagoriId] = useState("");
+
   const [catagoriData, setCatagoriData] = useState([]);
-  const [searchData, setSearchData] = useState([]);
-  const [searchData2, setSearchData2] = useState([]);
-  const [searchData3, setSearchData3] = useState([]);
-  const [isOpen, setIsOpen] = useState(0);
-  const [dataArry, setDataArry] = useState([]);
-  const [moodArry, setMoodArry] = useState([]);
-  const [tagArry, setTagArry] = useState([]);
-
-  const [dataArry2, setDataArry2] = useState([]);
-  const [moodArry2, setMoodArry2] = useState([]);
-  const [tagArry2, setTagArry2] = useState([]);
-
-  const [dataArry3, setDataArry3] = useState([]);
-  const [moodArry3, setMoodArry3] = useState([]);
-  const [tagArry3, setTagArry3] = useState([]);
 
   const [songThumb, setSongThumb] = useState("");
-
-  const onChaeckBox = async (idData, moodTag) => {
-    moodArry.includes(moodTag) == false
-      ? moodArry.push(moodTag)
-      : delete moodArry[moodArry.indexOf(moodTag)];
-    setTagArry(moodArry);
-    setIsOpen(false);
-    dataArry.includes(idData) == false
-      ? dataArry.push(idData)
-      : delete dataArry[dataArry.indexOf(idData)];
-  };
-
-  const onChaeckBox2 = async (idData, moodTag) => {
-    moodArry2.includes(moodTag) == false
-      ? moodArry2.push(moodTag)
-      : delete moodArry2[moodArry2.indexOf(moodTag)];
-    setTagArry2(moodArry2);
-    setIsOpen(false);
-    dataArry2.includes(idData) == false
-      ? dataArry2.push(idData)
-      : delete dataArry2[dataArry2.indexOf(idData)];
-  };
-
-  const onChaeckBox3 = async (idData, moodTag) => {
-    moodArry3.includes(moodTag) == false
-      ? moodArry3.push(moodTag)
-      : delete moodArry3[moodArry3.indexOf(moodTag)];
-    setTagArry3(moodArry3);
-    setIsOpen(false);
-    dataArry3.includes(idData) == false
-      ? dataArry3.push(idData)
-      : delete dataArry3[dataArry3.indexOf(idData)];
-  };
-
+  const [currentData, setCurrentData] = useState("");
+  const [occasionData, setOccasionData] = useState("");
+  const [genreData, setGenreData] = useState("");
+  const [moodData, setMoodData] = useState("");
   const imageUploading = (e) => {
     let images = e.target.files[0];
     var reader = new FileReader();
@@ -97,66 +55,17 @@ const EditSong = () => {
     reader.readAsDataURL(images);
   };
 
-  const get_categoryList = async () => {
-    try {
-      const response = await API.get_subCategory(header);
-      console.log("response", response);
-      setCatagoriData(response.data.data);
-    } catch (error) {}
-  };
-
-  const handalerChangesCata = async (e) => {
-    setCatagoriId(e.target.value);
-    try {
-      const response = await API.subCategoryId(e.target.value, header);
-      console.log("responseSSS", response);
-      setSearchData(response.data.data);
-    } catch (error) {}
-  };
-
-  const catagoriY = async (data) => {
-    const header = localStorage.getItem("_tokenCode");
-    console.log("data", data);
-    if (data === "1") {
-      setIsOpen("1");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        console.log("response", response);
-        setSearchData(response.data.data);
-      } catch (error) {}
-    } else if (data === "2") {
-      setIsOpen("2");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        setSearchData2(response.data.data);
-      } catch (error) {}
-    } else if (data === "3") {
-      setIsOpen("3");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        setSearchData3(response.data.data);
-      } catch (error) {}
-    }
-  };
-
-  const moodTegSearch = async (e) => {
-    try {
-      const reqObj = {
-        category_id: catagoriId,
-        search_term: e.target.value,
-      };
-      const response = await API.moodTagSearchApi(reqObj, header);
-      if (response.data.success === 1) {
-        setSearchData(response.data.data);
-      }
-    } catch (error) {}
-  };
-
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
+    if (name === "occasion") {
+      setOccasionData(parseInt(e.target.value));
+    }
+    if (name === "genre") {
+      setGenreData(parseInt(e.target.value));
+    }
+    if (name === "mood") {
+      setMoodData(parseInt(e.target.value));
+    }
     setFormData({ ...formData, [name]: value });
   };
 
@@ -165,25 +74,23 @@ const EditSong = () => {
     setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
-
     try {
       const reqObj = {
         name: formData.name,
-        // mood: dataArry3,
-        // occasion: dataArry2,
-        // genre: dataArry,
+        mood: typeof moodData === "number" ? moodData : "",
+        occasion: typeof occasionData === "number" ? occasionData : "",
+        genre: typeof genreData === "number" ? genreData : "",
         description: formData.description,
         music_file: imageData,
         amount: formData.amount,
         image: songThumb,
         id: loaction.state.id,
-        //templete: templeteData,
       };
       console.log("reqObj", reqObj);
       const response = await API.update_songs(reqObj, header);
       console.log("update_songs", response);
       if (response.data.success === 1) {
-        //setIsLoading(false);
+        setIsLoading(false);
         MESSAGE(response.data.msg, 1);
         navigate("/song-list");
       } else {
@@ -192,18 +99,13 @@ const EditSong = () => {
     } catch (error) {}
   };
 
-  // ? Music Tamplete
-
-  const closeModal = () => {
-    setIsOpen(false);
-    //setSearchData("");
-  };
-
   const commonDataTable = async () => {
     const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.getSongByid(loaction.state.id, header);
-      console.log("songList", response);
+      console.log("songList", response.data.data.categories);
+      setCurrentData(response.data.data);
+      setCatagoriData(response.data.data.categories);
       setFormData(response.data.data);
       if (response.data.is_login === false) {
         localStorage.removeItem("isLogin");
@@ -225,14 +127,7 @@ const EditSong = () => {
     !formData.description ||
     !formData.minutes ||
     !formData.second ||
-    !formData.amount ||
-    !dataArry ||
-    !dataArry2 ||
-    !dataArry3;
-
-  useEffect(() => {
-    get_categoryList();
-  }, []);
+    !formData.amount;
 
   return (
     <>
@@ -245,13 +140,14 @@ const EditSong = () => {
               </div>
             </div>
           </div>
+
           <div class="widget-content widget-content-area">
             <div className="row">
               <div className="normal">
                 <div className="row">
                   <div className="col-md-12">
                     <div className="row ">
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Title
@@ -267,153 +163,98 @@ const EditSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4 d-none">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose Occasion
+                            Occasion
                             <span class="text-danger">*</span>
                           </label>
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("1")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Occasion"
-                            />
-                            {isOpen === "1" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
-                        </div>
-                      </div>
-                      <div className="col-md-4 d-none">
-                        <div class="form-group">
-                          <label>
-                            Choose Genre
-                            <span class="text-danger">*</span>
-                          </label>
+                          <span>
+                            {" "}
+                            Current seletion{" "}
+                            <strong className="text-danger">
+                              {currentData.occasion}
+                            </strong>
+                          </span>
 
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("2")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Genre"
-                            />
-                            {isOpen === "2" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData2.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry2.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox2(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
+                          <select
+                            className="form-control"
+                            onChange={handalerChanges}
+                            name="occasion"
+                          >
+                            <option>--- Select ---</option>
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Occasion.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
+                          </select>
                         </div>
                       </div>
-                      <div className="col-md-4 d-none">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose Mood
+                            Genre
                             <span class="text-danger">*</span>
+                            <span>
+                              {" "}
+                              Current seletion{" "}
+                              <strong className="text-danger">
+                                {currentData.genre}
+                              </strong>
+                            </span>
                           </label>
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("3")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Mood"
-                            />
-                            {isOpen === "3" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData3.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry3.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox3(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
+                          <select
+                            className="form-control"
+                            value={formData.genre}
+                            onChange={handalerChanges}
+                            name="genre"
+                          >
+                            <option>--- Select ---</option>
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Genre.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
+                          </select>
+                        </div>
+                      </div>
+                      <div className="col-md-6">
+                        <div class="form-group">
+                          <label>
+                            Mood
+                            <span class="text-danger">*</span>
+                            <span>
+                              {" "}
+                              Current seletion{" "}
+                              <strong className="text-danger">
+                                {currentData.mood}
+                              </strong>
+                            </span>
+                          </label>
+                          <select
+                            className="form-control"
+                            onChange={handalerChanges}
+                            value={formData.mood}
+                            name="mood"
+                          >
+                            <option>--- Select ---</option>
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Mood.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
+                          </select>
                         </div>
                       </div>
 
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Amount
@@ -461,7 +302,7 @@ const EditSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Music File
@@ -511,7 +352,7 @@ const EditSong = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Music thumbnail
@@ -578,27 +419,6 @@ const EditSong = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="col-md-3 d-none">
-                    <h6>Occasion Tag </h6>
-                    <ul className="chooesTeg">
-                      {tagArry.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
-                    <h6>Genre Tag</h6>
-                    <ul className="chooesTeg">
-                      {tagArry2.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
-                    <h6>Mood Tag</h6>
-                    <ul className="chooesTeg">
-                      {tagArry3.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
                   </div>
                 </div>
               </div>

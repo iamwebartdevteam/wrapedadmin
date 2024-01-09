@@ -18,6 +18,9 @@ const initialData = {
   minutes: "",
   second: "",
   amount: "",
+  genre: "",
+  occasion: "",
+  mood: "",
 };
 
 const AddSong = () => {
@@ -45,39 +48,6 @@ const AddSong = () => {
 
   const [songThumb, setSongThumb] = useState("");
 
-  const onChaeckBox = async (idData, moodTag) => {
-    moodArry.includes(moodTag) == false
-      ? moodArry.push(moodTag)
-      : delete moodArry[moodArry.indexOf(moodTag)];
-    setTagArry(moodArry);
-    setIsOpen(false);
-    dataArry.includes(idData) == false
-      ? dataArry.push(idData)
-      : delete dataArry[dataArry.indexOf(idData)];
-  };
-
-  const onChaeckBox2 = async (idData, moodTag) => {
-    moodArry2.includes(moodTag) == false
-      ? moodArry2.push(moodTag)
-      : delete moodArry2[moodArry2.indexOf(moodTag)];
-    setTagArry2(moodArry2);
-    setIsOpen(false);
-    dataArry2.includes(idData) == false
-      ? dataArry2.push(idData)
-      : delete dataArry2[dataArry2.indexOf(idData)];
-  };
-
-  const onChaeckBox3 = async (idData, moodTag) => {
-    moodArry3.includes(moodTag) == false
-      ? moodArry3.push(moodTag)
-      : delete moodArry3[moodArry3.indexOf(moodTag)];
-    setTagArry3(moodArry3);
-    setIsOpen(false);
-    dataArry3.includes(idData) == false
-      ? dataArry3.push(idData)
-      : delete dataArry3[dataArry3.indexOf(idData)];
-  };
-
   const imageUploading = (e) => {
     let images = e.target.files[0];
     var reader = new FileReader();
@@ -101,15 +71,6 @@ const AddSong = () => {
       const response = await API.get_subCategory(header);
       console.log("response", response);
       setCatagoriData(response.data.data);
-    } catch (error) {}
-  };
-
-  const handalerChangesCata = async (e) => {
-    setCatagoriId(e.target.value);
-    try {
-      const response = await API.subCategoryId(e.target.value, header);
-      console.log("responseSSS", response);
-      setSearchData(response.data.data);
     } catch (error) {}
   };
 
@@ -141,19 +102,6 @@ const AddSong = () => {
     }
   };
 
-  const moodTegSearch = async (e) => {
-    try {
-      const reqObj = {
-        category_id: catagoriId,
-        search_term: e.target.value,
-      };
-      const response = await API.moodTagSearchApi(reqObj, header);
-      if (response.data.success === 1) {
-        setSearchData(response.data.data);
-      }
-    } catch (error) {}
-  };
-
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -164,13 +112,12 @@ const AddSong = () => {
     setIsLoading(true);
     const subArry = [];
     subArry.push(formData.subcategory_id);
-
     try {
       const reqObj = {
         name: formData.name,
-        mood: dataArry3,
-        occasion: dataArry2,
-        genre: dataArry,
+        mood: formData.mood,
+        occasion: formData.occasion,
+        genre: formData.genre,
         description: formData.description,
         music_file: imageData,
         duration: formData.minutes + ":" + formData.second,
@@ -198,18 +145,6 @@ const AddSong = () => {
     //setSearchData("");
   };
 
-  const btnDisabal =
-    !formData.name ||
-    !imageData ||
-    !songThumb ||
-    !formData.description ||
-    !formData.minutes ||
-    !formData.second ||
-    !formData.amount ||
-    !dataArry ||
-    !dataArry2 ||
-    !dataArry3;
-
   useEffect(() => {
     get_categoryList();
   }, []);
@@ -229,8 +164,8 @@ const AddSong = () => {
             <div className="row">
               <div className="normal">
                 <div className="row">
-                  <div className="col-md-9">
-                    <div className="row borderUS">
+                  <div className="col-md-12">
+                    <div className="row">
                       <div className="col-md-4">
                         <div class="form-group">
                           <label>
@@ -253,46 +188,20 @@ const AddSong = () => {
                             Choose Occasion
                             <span class="text-danger">*</span>
                           </label>
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("1")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Occasion"
-                            />
-                            {isOpen === "1" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
+                          <select
+                            className="form-control"
+                            onChange={handalerChanges}
+                            onFocus={() => catagoriY("1")}
+                            value={formData.occasion}
+                            name="occasion"
+                          >
+                            <option>--- Select ---</option>
+                            {searchData.map((item, index) => (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                       <div className="col-md-4">
@@ -301,47 +210,20 @@ const AddSong = () => {
                             Choose Genre
                             <span class="text-danger">*</span>
                           </label>
-
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("2")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Genre"
-                            />
-                            {isOpen === "2" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData2.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry2.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox2(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
+                          <select
+                            className="form-control"
+                            onChange={handalerChanges}
+                            onFocus={() => catagoriY("2")}
+                            value={formData.genre}
+                            name="genre"
+                          >
+                            <option>--- Select ---</option>
+                            {searchData2.map((item, index) => (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
                       <div className="col-md-4">
@@ -350,46 +232,20 @@ const AddSong = () => {
                             Choose Mood
                             <span class="text-danger">*</span>
                           </label>
-                          <>
-                            <input
-                              type="text"
-                              onFocus={() => catagoriY("3")}
-                              onChange={moodTegSearch}
-                              className="form-control"
-                              placeholder="Search Mood"
-                            />
-                            {isOpen === "3" ? (
-                              <div className="dropdownW">
-                                <span
-                                  className="dropClose"
-                                  onClick={closeModal}
-                                >
-                                  <i class="bi bi-x-square"></i>
-                                </span>
-                                <ul>
-                                  {searchData3.map((item, index) => (
-                                    <li key={index}>
-                                      <label>
-                                        <input
-                                          type="checkbox"
-                                          defaultChecked={
-                                            dataArry3.includes(item.id)
-                                              ? true
-                                              : false
-                                          }
-                                          onChange={() =>
-                                            onChaeckBox3(item.id, item.name)
-                                          }
-                                          className="mr-2"
-                                        />
-                                        {item.name}
-                                      </label>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            ) : null}
-                          </>
+                          <select
+                            className="form-control"
+                            onChange={handalerChanges}
+                            onFocus={() => catagoriY("3")}
+                            value={formData.mood}
+                            name="mood"
+                          >
+                            <option>--- Select ---</option>
+                            {searchData3.map((item, index) => (
+                              <option key={index} value={item.id}>
+                                {item.name}
+                              </option>
+                            ))}
+                          </select>
                         </div>
                       </div>
 
@@ -560,7 +416,7 @@ const AddSong = () => {
                     </div>
                   </div>
 
-                  <div className="col-md-3">
+                  <div className="col-md-3 d-none">
                     <h6>Occasion Tag </h6>
                     <ul className="chooesTeg">
                       {tagArry.map((item, key) => {

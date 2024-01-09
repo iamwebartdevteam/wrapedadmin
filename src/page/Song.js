@@ -135,50 +135,14 @@ const Song = ({ setIsLogin }) => {
                           <p>{item.description}</p>
                         </td>
                         <td width="200">
-                          <ul className="p-0 moodTag">
-                            {/* {item.genre.length === 0 ? (
-                              "N/A"
-                            ) : (
-                              <>
-                                {item.genre.map((catItem, index) => (
-                                  <li key={index}>
-                                    {index + 1}) {catItem}
-                                  </li>
-                                ))}
-                              </>
-                            )} */}
-                          </ul>
+                          <ul className="p-0 moodTag">{item.genre}</ul>
                         </td>
 
                         <td width="200">
-                          <ul className="p-0 moodTag">
-                            {/* {item.occasion.length === 0 ? (
-                              "N/A "
-                            ) : (
-                              <>
-                                {item.occasion.map((catItem, index) => (
-                                  <li key={index}>
-                                    {index + 1}) {catItem}
-                                  </li>
-                                ))}
-                              </>
-                            )} */}
-                          </ul>
+                          <ul className="p-0 moodTag">{item.occasion}</ul>
                         </td>
                         <td width="200">
-                          <ul className="p-0 moodTag">
-                            {/* {item.mood.length === 0 ? (
-                              "N/A"
-                            ) : (
-                              <>
-                                {item.mood.map((catItem, index) => (
-                                  <li key={index}>
-                                    {index + 1}) {catItem}
-                                  </li>
-                                ))}
-                              </>
-                            )} */}
-                          </ul>
+                          <ul className="p-0 moodTag">{item.mood}</ul>
                         </td>
                         <td>$ {item.amount}:00</td>
 
