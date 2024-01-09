@@ -312,6 +312,7 @@ export const payment_history = async (header) => {
 export const getSongByid = async (data, header) => {
   try {
     const url = c.SIGNUP + "/getsong/" + data;
+    console.log("url", url);
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });

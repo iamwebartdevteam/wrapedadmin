@@ -103,7 +103,7 @@ const EditSong = () => {
     const header = localStorage.getItem("_tokenCode");
     try {
       const response = await API.getSongByid(loaction.state.id, header);
-      console.log("songList", response.data.data.categories);
+      console.log("songList", response);
       setCurrentData(response.data.data);
       setCatagoriData(response.data.data.categories);
       setFormData(response.data.data);

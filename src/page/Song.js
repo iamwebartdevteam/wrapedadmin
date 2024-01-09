@@ -135,14 +135,20 @@ const Song = ({ setIsLogin }) => {
                           <p>{item.description}</p>
                         </td>
                         <td width="200">
-                          <ul className="p-0 moodTag">{item.genre}</ul>
+                          <ul className="p-0 moodTag">
+                            {item.genre === "" ? "N/A" : item.genre}
+                          </ul>
                         </td>
 
                         <td width="200">
-                          <ul className="p-0 moodTag">{item.occasion}</ul>
+                          <ul className="p-0 moodTag">
+                            {item.occasion === "" ? "N/A" : item.occasion}
+                          </ul>
                         </td>
                         <td width="200">
-                          <ul className="p-0 moodTag">{item.mood}</ul>
+                          <ul className="p-0 moodTag">
+                            {item.mood === "" ? "N/A" : item.mood}
+                          </ul>
                         </td>
                         <td>$ {item.amount}:00</td>
 
