@@ -2,22 +2,21 @@ import React from "react";
 import { useState } from "react";
 import * as API from "../api/index";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { MESSAGE, header } from "../schemas/Validation";
 const initialData = {
-  name: "",
+  title: "",
   logo: "",
   video: "",
   message: "",
 };
-const About = () => {
+const EditAbout = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
   const [video, setVideo] = useState("");
-  const [catagoriData, setCatagoriData] = useState([]);
 
   const handalerChanges = (e) => {
     const { name, value } = e.target;
@@ -39,8 +38,13 @@ const About = () => {
     formSubmitData.append("video", video);
     formSubmitData.append("message", formData.message);
     formSubmitData.append("title", formData.name);
+
     try {
-      const response = await API.aboutus(formSubmitData, header);
+      const response = await API.aboutusUpdate(
+        formSubmitData,
+        header,
+        location.state.id
+      );
       console.log("response", response);
       if (response.data.success === 1) {
         navigate("/about-list");
@@ -51,9 +55,16 @@ const About = () => {
     } catch (error) {}
   };
 
-  const btnDisabal = !formData.name || !formData.details || !imageData;
-
-  useEffect(() => {}, []);
+  //const btnDisabal = !formData.name || !formData.details || !imageData;
+  const get_categorisByid = async () => {
+    try {
+      const response = await API.aboutusGet(header);
+      setFormData(response.data.data);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    get_categorisByid();
+  }, []);
 
   return (
     <>
@@ -62,7 +73,7 @@ const About = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                <h4>About</h4>
+                <h4>Edit About</h4>
               </div>
             </div>
           </div>
@@ -78,8 +89,8 @@ const About = () => {
                     type="text"
                     class="form-control"
                     placeholder="Enter here"
-                    value={formData.name}
-                    name="name"
+                    value={formData.title}
+                    name="title"
                     onChange={handalerChanges}
                   />
                 </div>
@@ -92,7 +103,6 @@ const About = () => {
                     <input
                       type="file"
                       name="logo"
-                      value={formData.logo}
                       className="form-control"
                       onChange={handalerChanges}
                     />
@@ -147,4 +157,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default EditAbout;

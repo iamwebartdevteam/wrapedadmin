@@ -394,8 +394,19 @@ export const aboutusDelete = async (data, header) => {
 export const aboutusGet = async (header) => {
   try {
     const url = c.SIGNUP + "/aboutus";
-    console.log("url", url);
     const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const aboutusUpdate = async (data, header, id) => {
+  try {
+    const url = c.SIGNUP + "/aboutus/" + id;
+    console.log("url", url);
+    const res = await axios.patch(url, data, {
       headers: JSON.parse(header),
     });
     return res;

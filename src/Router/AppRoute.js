@@ -25,6 +25,7 @@ import Testimonials from "../page/Testimonials/Testimonials";
 import AddTestimonials from "../page/Testimonials/AddTestimonials";
 import About from "../page/About";
 import AboutList from "../page/AboutList";
+import EditAbout from "../page/EditAbout";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -77,6 +78,7 @@ const AppRoute = () => {
                   <Route path="/testimonials" element={<Testimonials />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/about-list" element={<AboutList />} />
+                  <Route path="/edit-about" element={<EditAbout />} />
                   <Route
                     path="/add-testimonials"
                     element={<AddTestimonials />}

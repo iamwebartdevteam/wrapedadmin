@@ -56,9 +56,9 @@ const AboutList = ({ setIsLogin }) => {
                 <h5 class="">About us </h5>
               </div>
               <div className="col-md-2 text-lg-right">
-                <Link to="/about" type="button" class="btn btn-success font-20">
+                {/* <Link to="/about" type="button" class="btn btn-success font-20">
                   <i class="las la-plus"></i>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
@@ -98,20 +98,20 @@ const AboutList = ({ setIsLogin }) => {
                         <td>{index + 1} </td>
                         <td width="150"> {item.title}</td>
                         <td>
-                          <img className="w-25" src={IMG + item.logo} />
+                          <img className="w-50" src={IMG + item.logo} />
                         </td>
-                        <td width="200">
-                          <video width="200">
+                        <td width="100">
+                          <video width="100">
                             <source src={IMG + item.video} />
                           </video>
                         </td>
-                        <td width="200">{item.message}</td>
+                        <td width="500">{item.message}</td>
 
                         <td width="80">
                           <div className="d-flex justify-content-center">
                             <Link
                               state={{ id: item.id }}
-                              to="/edit-song"
+                              to="/edit-about"
                               className="align-items-center mr-2 btn btn-success d-flex font-20 px-2"
                             >
                               <Edit2 size={20} colo />
