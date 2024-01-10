@@ -55,7 +55,7 @@ const About = () => {
       const response = await API.aboutus(formSubmitData, header);
       console.log("response", response);
       if (response.data.success === 1) {
-        navigate("/categories");
+        navigate("/about-list");
         MESSAGE(response.data.msg, 1);
       } else {
         MESSAGE(response.data.msg);

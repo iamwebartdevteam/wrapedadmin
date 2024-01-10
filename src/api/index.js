@@ -391,10 +391,11 @@ export const aboutusDelete = async (data, header) => {
   }
 };
 
-export const aboutusGet = async (data, header) => {
+export const aboutusGet = async (header) => {
   try {
     const url = c.SIGNUP + "/aboutus";
-    const res = await axios.get(url, data, {
+    console.log("url", url);
+    const res = await axios.get(url, {
       headers: JSON.parse(header),
     });
     return res;

@@ -18,19 +18,12 @@ const AboutList = ({ setIsLogin }) => {
       const response = await API.aboutusGet(header);
       console.log("songList", response);
       setData(response.data.data);
-      if (response.data.is_login === false) {
-        localStorage.removeItem("isLogin");
-        setIsLogin(localStorage.removeItem("isLogin"));
-        if (localStorage.getItem("isLogin") === null) {
-          navigate("/");
-        }
-      }
     } catch (error) {}
   };
 
   const userDelete = async (songId) => {
     try {
-      const response = await API.song_delete(songId, header);
+      const response = await API.aboutusDelete(songId, header);
       console.log("response", response);
       if (response.data.success === 1) {
         commonDataTable();
@@ -63,11 +56,7 @@ const AboutList = ({ setIsLogin }) => {
                 <h5 class="">About us </h5>
               </div>
               <div className="col-md-2 text-lg-right">
-                <Link
-                  to="/add-music"
-                  type="button"
-                  class="btn btn-success font-20"
-                >
+                <Link to="/about" type="button" class="btn btn-success font-20">
                   <i class="las la-plus"></i>
                 </Link>
               </div>
@@ -79,35 +68,20 @@ const AboutList = ({ setIsLogin }) => {
                 <thead>
                   <tr>
                     <th>
-                      <div class="th-content">ID d</div>
+                      <div class="th-content">ID</div>
                     </th>
                     <th>
                       <div class="th-content"> Title</div>
                     </th>
                     <th>
+                      <div class="th-content">logo</div>
+                    </th>
+                    <th>
+                      <div class="th-content">Video</div>
+                    </th>
+                    <th>
                       <div class="th-content">Details</div>
                     </th>
-                    <th>
-                      <div class="th-content">Genre</div>
-                    </th>
-                    <th>
-                      <div class="th-content">Occasion</div>
-                    </th>
-                    <th>
-                      <div class="th-content">Mood</div>
-                    </th>
-                    <th>
-                      <div class="th-content">Amount</div>
-                    </th>
-                    {/* <th>
-                      <div class="th-content">File</div>
-                    </th> */}
-                    <th>
-                      <div class="th-content">Thumbnail</div>
-                    </th>
-                    {/* <th>
-                      <div class="th-content">Templete</div>
-                    </th> */}
                     <th>
                       <div class="th-content">Action</div>
                     </th>
@@ -122,41 +96,19 @@ const AboutList = ({ setIsLogin }) => {
                     data.map((item, index) => (
                       <tr key={index}>
                         <td>{index + 1} </td>
-                        <td width="150"> {item.name}</td>
-                        <td width="400">
-                          <p>{item.description}</p>
-                        </td>
-                        <td width="200">
-                          <ul className="p-0 moodTag">
-                            {item.genre === "" ? "N/A" : item.genre}
-                          </ul>
-                        </td>
-
-                        <td width="200">
-                          <ul className="p-0 moodTag">
-                            {item.occasion === "" ? "N/A" : item.occasion}
-                          </ul>
-                        </td>
-                        <td width="200">
-                          <ul className="p-0 moodTag">
-                            {item.mood === "" ? "N/A" : item.mood}
-                          </ul>
-                        </td>
-                        <td>$ {item.amount}:00</td>
-
+                        <td width="150"> {item.title}</td>
                         <td>
-                          <img className="w-75" src={IMG + item.image} />
+                          <img className="w-25" src={IMG + item.logo} />
                         </td>
+                        <td width="200">
+                          <video width="200">
+                            <source src={IMG + item.video} />
+                          </video>
+                        </td>
+                        <td width="200">{item.message}</td>
+
                         <td width="80">
                           <div className="d-flex justify-content-center">
-                            <Link
-                              state={{ id: item.id }}
-                              to="/add-templete"
-                              //onClick={() => userStatus(item.id)}
-                              class="align-items-center mr-2 btn btn-info d-flex font-20 px-2"
-                            >
-                              <PlusCircle size={20} />
-                            </Link>
                             <Link
                               state={{ id: item.id }}
                               to="/edit-song"
