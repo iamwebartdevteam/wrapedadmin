@@ -312,7 +312,6 @@ export const payment_history = async (header) => {
 export const getSongByid = async (data, header) => {
   try {
     const url = c.SIGNUP + "/getsong/" + data;
-    console.log("url", url);
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });
@@ -360,6 +359,41 @@ export const gettempleteById = async (data, header) => {
     const url =
       c.SIGNUP + "/gettemplatebytype/" + data.tempId + "/" + data.tempTypeId;
     console.log("url", url);
+    const res = await axios.get(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+export const aboutus = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/aboutus";
+    const res = await axios.post(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const aboutusDelete = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/aboutus/" + data;
+    const res = await axios.delete(url, data, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
+
+export const aboutusGet = async (data, header) => {
+  try {
+    const url = c.SIGNUP + "/aboutus";
     const res = await axios.get(url, data, {
       headers: JSON.parse(header),
     });

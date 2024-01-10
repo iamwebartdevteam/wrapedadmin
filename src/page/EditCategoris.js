@@ -11,7 +11,7 @@ const initialData = {
 };
 const EditCategoris = () => {
   const location = useLocation();
-  console.log("location", location.state.id);
+
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState(initialData);

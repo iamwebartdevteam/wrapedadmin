@@ -108,6 +108,19 @@ const SidBar = () => {
                 Testimonials
               </NavLink>
             </li>
+            <li class="menu">
+              <NavLink
+                to="/about-list"
+                id="maps"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="testimonials"
+                class="main-item dropdown-toggle bs-tooltip"
+              >
+                <i class="bi bi-people-fill"></i> {""}
+                About us
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>
