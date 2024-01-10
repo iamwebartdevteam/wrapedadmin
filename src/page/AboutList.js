@@ -56,9 +56,17 @@ const AboutList = ({ setIsLogin }) => {
                 <h5 class="">About us </h5>
               </div>
               <div className="col-md-2 text-lg-right">
-                {/* <Link to="/about" type="button" class="btn btn-success font-20">
-                  <i class="las la-plus"></i>
-                </Link> */}
+                {data === "" ? (
+                  <Link
+                    to="/about"
+                    type="button"
+                    class="btn btn-success font-20"
+                  >
+                    <i class="las la-plus"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -67,9 +75,6 @@ const AboutList = ({ setIsLogin }) => {
               <table class="table table-hover table-bordered">
                 <thead>
                   <tr>
-                    <th>
-                      <div class="th-content">ID</div>
-                    </th>
                     <th>
                       <div class="th-content"> Title</div>
                     </th>
@@ -88,46 +93,39 @@ const AboutList = ({ setIsLogin }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.length === 0 ? (
-                    <>
-                      <h4 className="text-center">No Record found</h4>
-                    </>
-                  ) : (
-                    data.map((item, index) => (
-                      <tr key={index}>
-                        <td>{index + 1} </td>
-                        <td width="150"> {item.title}</td>
-                        <td>
-                          <img className="w-50" src={IMG + item.logo} />
-                        </td>
-                        <td width="100">
-                          <video width="100">
-                            <source src={IMG + item.video} />
-                          </video>
-                        </td>
-                        <td width="500">{item.message}</td>
+                  <tr>
+                    <td width="150"> {data.title}</td>
+                    <td width="80">
+                      <img className="w-50" src={IMG + data.logo} />
+                    </td>
+                    <td width="150">
+                      <video
+                        src={IMG + data.video}
+                        controls
+                        width="100%"
+                      ></video>
+                    </td>
+                    <td width="400">{data.message}</td>
 
-                        <td width="80">
-                          <div className="d-flex justify-content-center">
-                            <Link
-                              state={{ id: item.id }}
-                              to="/edit-about"
-                              className="align-items-center mr-2 btn btn-success d-flex font-20 px-2"
-                            >
-                              <Edit2 size={20} colo />
-                            </Link>
-                            <button
-                              type="button"
-                              onClick={() => userDelete(item.id)}
-                              class="align-items-center btn btn-danger d-flex font-20 px-2"
-                            >
-                              <Trash2 size={20} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                    <td width="80">
+                      <div className="d-flex justify-content-center">
+                        <Link
+                          state={{ id: data.id }}
+                          to="/edit-about"
+                          className="align-items-center mr-2 btn btn-success d-flex font-20 px-2"
+                        >
+                          <Edit2 size={20} colo />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => userDelete(data.id)}
+                          class="align-items-center btn btn-danger d-flex font-20 px-2"
+                        >
+                          <Trash2 size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>

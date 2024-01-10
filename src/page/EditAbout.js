@@ -26,7 +26,7 @@ const EditAbout = () => {
     }
     setFormData({ ...formData, [name]: value });
   };
-
+  console.log("formData.title", formData.title);
   const handalerChangesv = (e) => {
     let video = e.target.files[0];
     setVideo(video);
@@ -37,7 +37,7 @@ const EditAbout = () => {
     formSubmitData.append("logo", imageData);
     formSubmitData.append("video", video);
     formSubmitData.append("message", formData.message);
-    formSubmitData.append("title", formData.name);
+    formSubmitData.append("title", formData.title);
 
     try {
       const response = await API.aboutusUpdate(
@@ -135,7 +135,7 @@ const EditAbout = () => {
                     onChange={handalerChanges}
                     placeholder="Enter hare"
                     class="form-control"
-                    rows="3"
+                    rows="10"
                   ></textarea>
                 </div>
               </div>
