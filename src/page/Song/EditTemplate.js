@@ -186,7 +186,7 @@ const EditTemplate = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-9 col-md-9 col-sm-9 col-12">
-                <h4>Edit Templete</h4>
+                <h4>Edit Voice Over Templete</h4>
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Templete
+                              Voice-Over Templete
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -291,7 +291,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Sample
+                              Upload Prerecorded File
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -448,7 +448,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Templete
+                              Voice-Over Templete
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -501,7 +501,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Sample
+                              Upload Prerecorded File
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">

@@ -162,7 +162,7 @@ const SongTemplete = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-9 col-md-9 col-sm-9 col-12">
-                <h4>Add Templete</h4>
+                <h4>Add Voice Over Templete</h4>
               </div>
               <div class="col-xl-3 col-md-3 col-sm-3 col-12 text-right">
                 <Link
@@ -223,7 +223,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Templete
+                              Voice-Over Templete
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -258,7 +258,7 @@ const SongTemplete = () => {
 
                                       {templeteFile
                                         ? "File Uploaded successfully"
-                                        : "Upload Templete files here"}
+                                        : "Upload Voice Over files here"}
                                     </span>
                                     <input
                                       hidden
@@ -276,7 +276,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Sample
+                              Upload Prerecorded File
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -433,7 +433,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Templete
+                              Voice-Over Templete
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -468,7 +468,7 @@ const SongTemplete = () => {
 
                                       {templeteFile
                                         ? "File Uploaded successfully"
-                                        : "Upload Templete files here"}
+                                        : "Upload Voice Over files here"}
                                     </span>
                                     <input
                                       hidden
@@ -486,7 +486,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Upload Sample
+                              Upload Prerecorded File
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">

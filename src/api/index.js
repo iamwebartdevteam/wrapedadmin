@@ -123,7 +123,7 @@ export const subCategoryId_editGet = async (data, header) => {
 
 export const subCategoryId_edit = async (data, header) => {
   try {
-    const url = c.SUBCATAGORIES;
+    const url = c.SUBCATAGORIES + "/" + data.id;
     const res = await axios.patch(url, data, {
       headers: JSON.parse(header),
     });

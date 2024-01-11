@@ -50,7 +50,7 @@ const TempleteListing = ({ setIsLogin }) => {
           <div class="widget-heading">
             <div class="row">
               <div class="col-xl-10 col-md-10 col-sm-10 col-12">
-                <h5 class="">List of Template </h5>
+                <h5 class="">List of Voice Over Template </h5>
               </div>
               <div className="col-md-2 text-lg-right"></div>
             </div>
