@@ -414,3 +414,15 @@ export const aboutusUpdate = async (data, header, id) => {
     return e.response;
   }
 };
+
+export const contactGet = async (header) => {
+  try {
+    const url = c.CONTACTUS + "/contactus";
+    const res = await axios.get(url, {
+      headers: JSON.parse(header),
+    });
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};

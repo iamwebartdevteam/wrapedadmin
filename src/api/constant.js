@@ -3,6 +3,7 @@ export const TIMEZONE = "America/Los_Angeles";
 export const IMG = "https://webarttechnology.co.in";
 // ? ====== BASE URL ======
 //export const URL = "https://webarttechnology.co.in/admin";
+export const CONTACTUS = "https://webarttechnology.co.in/backend";
 export const URL = "https://webarttechnology.co.in/backend/admin";
 //export const URL = "http://admin.wrappedinmusic.mypickmyvote.com/api";
 

@@ -121,6 +121,20 @@ const SidBar = () => {
                 About us
               </NavLink>
             </li>
+            <li class="menu">
+              <NavLink
+                to="/contact-us"
+                id="maps"
+                data-toggle="tooltip"
+                data-placement="right"
+                title="testimonials"
+                class="main-item dropdown-toggle bs-tooltip"
+              >
+                <i class="bi bi-person-rolodex"></i>
+                {""}
+                Enquiry
+              </NavLink>
+            </li>
           </ul>
         </nav>
       </div>

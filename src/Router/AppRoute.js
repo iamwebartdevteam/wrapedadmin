@@ -26,6 +26,8 @@ import AddTestimonials from "../page/Testimonials/AddTestimonials";
 import About from "../page/About";
 import AboutList from "../page/AboutList";
 import EditAbout from "../page/EditAbout";
+import Contact from "../page/Contact/ContactList";
+import ContactList from "../page/Contact/ContactList";
 const AppRoute = () => {
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
 
@@ -83,6 +85,7 @@ const AppRoute = () => {
                     path="/add-testimonials"
                     element={<AddTestimonials />}
                   />
+                  <Route path="/contact-us" element={<ContactList />} />
                 </Routes>
               </div>
             </div>
