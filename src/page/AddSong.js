@@ -123,7 +123,6 @@ const AddSong = () => {
         duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
-        //templete: templeteData,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -166,7 +165,7 @@ const AddSong = () => {
                 <div className="row">
                   <div className="col-md-12">
                     <div className="row">
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Title
@@ -182,7 +181,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Choose Occasion
@@ -204,7 +203,7 @@ const AddSong = () => {
                           </select>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Choose Genre
@@ -226,7 +225,7 @@ const AddSong = () => {
                           </select>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Choose Mood
@@ -249,7 +248,7 @@ const AddSong = () => {
                         </div>
                       </div>
 
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Amount
@@ -265,7 +264,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Minutes
@@ -281,7 +280,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-4 d-none">
                         <div class="form-group">
                           <label>
                             Second
@@ -297,7 +296,7 @@ const AddSong = () => {
                           />
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
                             Music File
@@ -347,10 +346,10 @@ const AddSong = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="col-md-4">
+                      <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Music thumbnail
+                            Thumbnail Image
                             <span class="text-danger">*</span>
                           </label>
                           <div id="dropzone">

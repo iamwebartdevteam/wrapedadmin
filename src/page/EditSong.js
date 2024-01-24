@@ -169,9 +169,9 @@ const EditSong = () => {
                             Occasion
                             <span class="text-danger">*</span>
                           </label>
-                          <span>
+                          <span style={{ color: "#000" }}>
                             {" "}
-                            Current seletion{" "}
+                            Current selection{" "}
                             <strong className="text-danger">
                               {currentData.occasion}
                             </strong>
@@ -200,7 +200,7 @@ const EditSong = () => {
                             <span class="text-danger">*</span>
                             <span>
                               {" "}
-                              Current seletion{" "}
+                              Current selection{" "}
                               <strong className="text-danger">
                                 {currentData.genre}
                               </strong>
@@ -230,7 +230,7 @@ const EditSong = () => {
                             <span class="text-danger">*</span>
                             <span>
                               {" "}
-                              Current seletion{" "}
+                              Current selection{" "}
                               <strong className="text-danger">
                                 {currentData.mood}
                               </strong>
@@ -305,7 +305,7 @@ const EditSong = () => {
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Music File
+                            Song File
                             <span class="text-danger">*</span>
                           </label>
                           <div id="dropzone">
@@ -355,7 +355,7 @@ const EditSong = () => {
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Music thumbnail
+                            Thumbnail Image
                             <span class="text-danger">*</span>
                           </label>
                           <div id="dropzone">

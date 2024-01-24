@@ -95,7 +95,7 @@ const SidBar = () => {
                 <span>Payment History</span>
               </NavLink>
             </li>
-            <li class="menu">
+            {/* <li class="menu">
               <NavLink
                 to="/testimonials"
                 id="maps"
@@ -107,7 +107,7 @@ const SidBar = () => {
                 <i class="las la-cog"></i>
                 Testimonials
               </NavLink>
-            </li>
+            </li> */}
             <li class="menu">
               <NavLink
                 to="/about-list"
