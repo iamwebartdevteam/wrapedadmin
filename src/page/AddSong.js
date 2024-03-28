@@ -34,7 +34,7 @@ const AddSong = () => {
   const [searchData2, setSearchData2] = useState([]);
   const [searchData3, setSearchData3] = useState([]);
   const [isOpen, setIsOpen] = useState(0);
-  const [dataArry, setDataArry] = useState([]);
+  const [fileName, setFileName] = useState("");
   const [moodArry, setMoodArry] = useState([]);
   const [tagArry, setTagArry] = useState([]);
 
@@ -49,7 +49,9 @@ const AddSong = () => {
   const [songThumb, setSongThumb] = useState("");
 
   const imageUploading = (e) => {
+    console.log("e", e.target.value);
     let images = e.target.files[0];
+    setFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setImageData(reader.result);
@@ -123,6 +125,7 @@ const AddSong = () => {
         duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
+        filename: fileName,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);

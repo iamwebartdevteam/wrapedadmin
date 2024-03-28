@@ -32,8 +32,12 @@ const SongTemplete = () => {
   const [templeteFile, setTempleteFilea] = useState("");
   const [sampleData, setSampleData] = useState("");
 
+  const [temFileName, setTemFileName] = useState("");
+  const [samFile, setSamFile] = useState("");
+
   const uploadtemplete = (e) => {
     let images = e.target.files[0];
+    setTemFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setTempleteFilea(reader.result);
@@ -43,6 +47,7 @@ const SongTemplete = () => {
 
   const uploadSample = (e) => {
     let images = e.target.files[0];
+    setSamFile(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setSampleData(reader.result);
@@ -74,6 +79,8 @@ const SongTemplete = () => {
       try {
         const reqObj = {
           name: formData.title,
+          temFileName: temFileName,
+          samFile: samFile,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
@@ -111,6 +118,8 @@ const SongTemplete = () => {
       try {
         const reqObj = {
           name: formData.title,
+          temFileName: temFileName,
+          samFile: samFile,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
