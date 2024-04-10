@@ -33,8 +33,12 @@ const EditTemplate = () => {
   const [templeteFile, setTempleteFilea] = useState("");
   const [sampleData, setSampleData] = useState("");
 
+  const [temFileName, setTemFileName] = useState("");
+  const [samFile, setSamFile] = useState("");
+
   const uploadtemplete = (e) => {
     let images = e.target.files[0];
+    setTemFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setTempleteFilea(reader.result);
@@ -44,6 +48,7 @@ const EditTemplate = () => {
 
   const uploadSample = (e) => {
     let images = e.target.files[0];
+    setSamFile(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setSampleData(reader.result);
@@ -75,6 +80,8 @@ const EditTemplate = () => {
       try {
         const reqObj = {
           name: formData.name,
+          temFileName: temFileName,
+          samFile: samFile,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
@@ -111,6 +118,8 @@ const EditTemplate = () => {
       try {
         const reqObj = {
           name: formData.title,
+          temFileName: temFileName,
+          samFile: samFile,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
@@ -272,7 +281,7 @@ const EditTemplate = () => {
                                       )}
 
                                       {templeteFile
-                                        ? "File Uploaded successfully"
+                                        ? temFileName
                                         : "Upload Templete files here"}
                                     </span>
                                     <input
@@ -325,7 +334,7 @@ const EditTemplate = () => {
                                       )}
 
                                       {sampleData
-                                        ? "File Uploaded successfully"
+                                        ? samFile
                                         : "Upload Sample files here"}
                                     </span>
                                     <input
@@ -482,7 +491,7 @@ const EditTemplate = () => {
                                       )}
 
                                       {templeteFile
-                                        ? "File Uploaded successfully"
+                                        ? temFileName
                                         : "Upload Templete files here"}
                                     </span>
                                     <input
@@ -535,7 +544,7 @@ const EditTemplate = () => {
                                       )}
 
                                       {sampleData
-                                        ? "File Uploaded successfully"
+                                        ? samFile
                                         : "Upload Sample files here"}
                                     </span>
                                     <input

@@ -266,7 +266,7 @@ const SongTemplete = () => {
                                       )}
 
                                       {templeteFile
-                                        ? "File Uploaded successfully"
+                                        ? temFileName
                                         : "Upload Voice Over files here"}
                                     </span>
                                     <input
@@ -319,7 +319,7 @@ const SongTemplete = () => {
                                       )}
 
                                       {sampleData
-                                        ? "File Uploaded successfully"
+                                        ? samFile
                                         : "Upload Sample files here"}
                                     </span>
                                     <input
@@ -476,7 +476,7 @@ const SongTemplete = () => {
                                       )}
 
                                       {templeteFile
-                                        ? "File Uploaded successfully"
+                                        ? temFileName
                                         : "Upload Voice Over files here"}
                                     </span>
                                     <input
@@ -529,7 +529,7 @@ const SongTemplete = () => {
                                       )}
 
                                       {sampleData
-                                        ? "File Uploaded successfully"
+                                        ? samFile
                                         : "Upload Sample files here"}
                                     </span>
                                     <input
@@ -617,7 +617,7 @@ const SongTemplete = () => {
                                       )}
 
                                       {adminTemFile
-                                        ? "File Uploaded successfully"
+                                        ? temFileName
                                         : "Upload Templete files here"}
                                     </span>
                                     <input
