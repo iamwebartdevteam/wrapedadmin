@@ -18,9 +18,10 @@ const EditCategoris = () => {
   const [imageData, setImageData] = useState("");
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
-
+  const [fileName, setFileName] = useState("");
   const imageUploading = (e) => {
     let images = e.target.files[0];
+    setFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setImageData(reader.result);
@@ -156,11 +157,19 @@ const EditCategoris = () => {
                       <label for="file" className="dz-message needsclick">
                         <div class="icon dripicons dripicons-browser-upload"></div>{" "}
                         <form encType="multipart/form-data">
-                          <span class="dz-button">Upload files here.</span>
-                          <br />
-                          <span class="note needsclick">
-                            (This is a Uploadzone. Browse your files)
-                          </span>
+                          {fileName ? (
+                            <>
+                              <span className="text-success">{fileName}</span>
+                            </>
+                          ) : (
+                            <>
+                              <span class="dz-button">Upload files here.</span>
+                              <br />
+                              <span class="note needsclick">
+                                (This is a Uploadzone. Browse your files)
+                              </span>
+                            </>
+                          )}
 
                           <input
                             hidden

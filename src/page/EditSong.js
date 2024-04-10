@@ -31,14 +31,17 @@ const EditSong = () => {
   const [imageData, setImageData] = useState("");
 
   const [catagoriData, setCatagoriData] = useState([]);
-
+  const [fileName, setFileName] = useState("");
+  const [thumFilename, setThumFilename] = useState("");
   const [songThumb, setSongThumb] = useState("");
   const [currentData, setCurrentData] = useState("");
   const [occasionData, setOccasionData] = useState("");
   const [genreData, setGenreData] = useState("");
   const [moodData, setMoodData] = useState("");
+
   const imageUploading = (e) => {
     let images = e.target.files[0];
+    setFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setImageData(reader.result);
@@ -48,6 +51,7 @@ const EditSong = () => {
 
   const imageUploadingThum = (e) => {
     let images = e.target.files[0];
+    setThumFilename(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setSongThumb(reader.result);
@@ -85,6 +89,7 @@ const EditSong = () => {
         amount: formData.amount,
         image: songThumb,
         id: loaction.state.id,
+        filename: fileName,
       };
       console.log("reqObj", reqObj);
       const response = await API.update_songs(reqObj, header);
@@ -335,9 +340,8 @@ const EditSong = () => {
                                       ""
                                     )}
                                     {imageData
-                                      ? "File Uploaded successfully"
+                                      ? fileName
                                       : "Upload MP3 files here"}
-                                    .
                                   </span>
                                   <input
                                     hidden
@@ -386,7 +390,7 @@ const EditSong = () => {
                                     )}
 
                                     {songThumb
-                                      ? "File Uploaded successfully"
+                                      ? thumFilename
                                       : "Upload thumbnail files here"}
                                   </span>
                                   <input

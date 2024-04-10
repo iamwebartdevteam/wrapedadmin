@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import * as API from "../api/index";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
 import Select from "react-dropdown-select";
 import { MESSAGE, header } from "../schemas/Validation";
@@ -18,39 +18,27 @@ const initialData = {
   minutes: "",
   second: "",
   amount: "",
+  mood: "",
   genre: "",
   occasion: "",
-  mood: "",
 };
 
-const AddSong = () => {
+const EditSong = () => {
+  const loaction = useLocation();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
-  const [catagoriId, setCatagoriId] = useState("");
+
   const [catagoriData, setCatagoriData] = useState([]);
-  const [searchData, setSearchData] = useState([]);
-  const [searchData2, setSearchData2] = useState([]);
-  const [searchData3, setSearchData3] = useState([]);
-  const [isOpen, setIsOpen] = useState(0);
-  const [fileName, setFileName] = useState("");
-  const [thumFilename, setThumFilename] = useState("");
-  const [moodArry, setMoodArry] = useState([]);
-  const [tagArry, setTagArry] = useState([]);
-
-  const [moodArry2, setMoodArry2] = useState([]);
-  const [tagArry2, setTagArry2] = useState([]);
-
-  const [dataArry3, setDataArry3] = useState([]);
-  const [moodArry3, setMoodArry3] = useState([]);
-  const [tagArry3, setTagArry3] = useState([]);
 
   const [songThumb, setSongThumb] = useState("");
-
+  const [currentData, setCurrentData] = useState("");
+  const [occasionData, setOccasionData] = useState("");
+  const [genreData, setGenreData] = useState("");
+  const [moodData, setMoodData] = useState("");
   const imageUploading = (e) => {
     let images = e.target.files[0];
-    setFileName(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setImageData(reader.result);
@@ -60,7 +48,6 @@ const AddSong = () => {
 
   const imageUploadingThum = (e) => {
     let images = e.target.files[0];
-    setThumFilename(images.name);
     var reader = new FileReader();
     reader.onloadend = function () {
       setSongThumb(reader.result);
@@ -68,44 +55,17 @@ const AddSong = () => {
     reader.readAsDataURL(images);
   };
 
-  const get_categoryList = async () => {
-    try {
-      const response = await API.get_subCategory(header);
-      console.log("response", response);
-      setCatagoriData(response.data.data);
-    } catch (error) {}
-  };
-
-  const catagoriY = async (data) => {
-    const header = localStorage.getItem("_tokenCode");
-    console.log("data", data);
-    if (data === "1") {
-      setIsOpen("1");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        console.log("response", response);
-        setSearchData(response.data.data);
-      } catch (error) {}
-    } else if (data === "2") {
-      setIsOpen("2");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        setSearchData2(response.data.data);
-      } catch (error) {}
-    } else if (data === "3") {
-      setIsOpen("3");
-      setCatagoriId(data);
-      try {
-        const response = await API.subCategoryId(data, header);
-        setSearchData3(response.data.data);
-      } catch (error) {}
-    }
-  };
-
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
+    if (name === "occasion") {
+      setOccasionData(parseInt(e.target.value));
+    }
+    if (name === "genre") {
+      setGenreData(parseInt(e.target.value));
+    }
+    if (name === "mood") {
+      setMoodData(parseInt(e.target.value));
+    }
     setFormData({ ...formData, [name]: value });
   };
 
@@ -117,21 +77,20 @@ const AddSong = () => {
     try {
       const reqObj = {
         name: formData.name,
-        mood: formData.mood,
-        occasion: formData.occasion,
-        genre: formData.genre,
+        mood: typeof moodData === "number" ? moodData : "",
+        occasion: typeof occasionData === "number" ? occasionData : "",
+        genre: typeof genreData === "number" ? genreData : "",
         description: formData.description,
         music_file: imageData,
-        duration: formData.minutes + ":" + formData.second,
         amount: formData.amount,
         image: songThumb,
-        filename: fileName,
+        id: loaction.state.id,
       };
       console.log("reqObj", reqObj);
-      const response = await API.add_songs(reqObj, header);
-      console.log("response", response);
+      const response = await API.update_songs(reqObj, header);
+      console.log("update_songs", response);
       if (response.data.success === 1) {
-        //setIsLoading(false);
+        setIsLoading(false);
         MESSAGE(response.data.msg, 1);
         navigate("/song-list");
       } else {
@@ -140,16 +99,35 @@ const AddSong = () => {
     } catch (error) {}
   };
 
-  // ? Music Tamplete
-
-  const closeModal = () => {
-    setIsOpen(false);
-    //setSearchData("");
+  const commonDataTable = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.getSongByid(loaction.state.id, header);
+      console.log("songList", response);
+      setCurrentData(response.data.data);
+      setCatagoriData(response.data.data.categories);
+      setFormData(response.data.data);
+      if (response.data.is_login === false) {
+        localStorage.removeItem("isLogin");
+        if (localStorage.getItem("isLogin") === null) {
+          navigate("/");
+        }
+      }
+    } catch (error) {}
   };
 
   useEffect(() => {
-    get_categoryList();
+    commonDataTable();
   }, []);
+
+  const btnDisabal =
+    !formData.name ||
+    !imageData ||
+    !songThumb ||
+    !formData.description ||
+    !formData.minutes ||
+    !formData.second ||
+    !formData.amount;
 
   return (
     <>
@@ -158,16 +136,17 @@ const AddSong = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-12 col-md-12 col-sm-12 col-12">
-                <h4>Add Music</h4>
+                <h4>Edit Music</h4>
               </div>
             </div>
           </div>
+
           <div class="widget-content widget-content-area">
             <div className="row">
               <div className="normal">
                 <div className="row">
                   <div className="col-md-12">
-                    <div className="row">
+                    <div className="row ">
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
@@ -187,66 +166,90 @@ const AddSong = () => {
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose Occasion
+                            Occasion
                             <span class="text-danger">*</span>
                           </label>
+                          <span style={{ color: "#000" }}>
+                            {" "}
+                            Current selection{" "}
+                            <strong className="text-danger">
+                              {currentData.occasion}
+                            </strong>
+                          </span>
+
                           <select
                             className="form-control"
                             onChange={handalerChanges}
-                            onFocus={() => catagoriY("1")}
-                            value={formData.occasion}
                             name="occasion"
                           >
                             <option>--- Select ---</option>
-                            {searchData.map((item, index) => (
-                              <option key={index} value={item.id}>
-                                {item.name}
-                              </option>
-                            ))}
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Occasion.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
                           </select>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose Genre
+                            Genre
                             <span class="text-danger">*</span>
+                            <span>
+                              {" "}
+                              Current selection{" "}
+                              <strong className="text-danger">
+                                {currentData.genre}
+                              </strong>
+                            </span>
                           </label>
                           <select
                             className="form-control"
-                            onChange={handalerChanges}
-                            onFocus={() => catagoriY("2")}
                             value={formData.genre}
+                            onChange={handalerChanges}
                             name="genre"
                           >
                             <option>--- Select ---</option>
-                            {searchData2.map((item, index) => (
-                              <option key={index} value={item.id}>
-                                {item.name}
-                              </option>
-                            ))}
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Genre.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
                           </select>
                         </div>
                       </div>
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Choose Mood
+                            Mood
                             <span class="text-danger">*</span>
+                            <span>
+                              {" "}
+                              Current selection{" "}
+                              <strong className="text-danger">
+                                {currentData.mood}
+                              </strong>
+                            </span>
                           </label>
                           <select
                             className="form-control"
                             onChange={handalerChanges}
-                            onFocus={() => catagoriY("3")}
                             value={formData.mood}
                             name="mood"
                           >
                             <option>--- Select ---</option>
-                            {searchData3.map((item, index) => (
-                              <option key={index} value={item.id}>
-                                {item.name}
-                              </option>
-                            ))}
+                            {catagoriData.length === 0
+                              ? null
+                              : catagoriData.Mood.map((item, index) => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
                           </select>
                         </div>
                       </div>
@@ -302,7 +305,7 @@ const AddSong = () => {
                       <div className="col-md-6">
                         <div class="form-group">
                           <label>
-                            Music File
+                            Song File
                             <span class="text-danger">*</span>
                           </label>
                           <div id="dropzone">
@@ -332,8 +335,9 @@ const AddSong = () => {
                                       ""
                                     )}
                                     {imageData
-                                      ? fileName
+                                      ? "File Uploaded successfully"
                                       : "Upload MP3 files here"}
+                                    .
                                   </span>
                                   <input
                                     hidden
@@ -382,7 +386,7 @@ const AddSong = () => {
                                     )}
 
                                     {songThumb
-                                      ? thumFilename
+                                      ? "File Uploaded successfully"
                                       : "Upload thumbnail files here"}
                                   </span>
                                   <input
@@ -416,27 +420,6 @@ const AddSong = () => {
                       </div>
                     </div>
                   </div>
-
-                  <div className="col-md-3 d-none">
-                    <h6>Occasion Tag </h6>
-                    <ul className="chooesTeg">
-                      {tagArry.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
-                    <h6>Genre Tag</h6>
-                    <ul className="chooesTeg">
-                      {tagArry2.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
-                    <h6>Mood Tag</h6>
-                    <ul className="chooesTeg">
-                      {tagArry3.map((item, key) => {
-                        return <li key={key}>{item}</li>;
-                      })}
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
@@ -453,7 +436,7 @@ const AddSong = () => {
                 type="reset"
                 class="btn btn-success mr-2"
               >
-                Submit
+                Update
               </button>
             )}
           </div>
@@ -463,4 +446,4 @@ const AddSong = () => {
   );
 };
 
-export default AddSong;
+export default EditSong;
