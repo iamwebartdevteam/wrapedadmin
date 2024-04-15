@@ -586,7 +586,7 @@ const EditTemplate = () => {
                               onClick={addTemplete}
                               class="btn btn-success mr-2"
                             >
-                              Add Templete
+                              Update Templete
                             </button>
                           )}
                         </div>
@@ -737,7 +737,7 @@ const EditTemplate = () => {
                         </div>
                         <div className="col-md-12">
                           <button class="btn btn-info mr-2">
-                            Add Templete
+                            Update Templete
                           </button>
                         </div>
                       </div>
