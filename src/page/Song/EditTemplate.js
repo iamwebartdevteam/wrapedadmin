@@ -63,19 +63,18 @@ const EditTemplate = () => {
 
   const addTemplete = async () => {
     setIsTemplete(true);
-    const hms = formData.mstart;
-    var [minutes, seconds] = hms.split(".");
-    const mstart = +minutes * 60 + +seconds;
-
-    const hmsll = formData.messlength;
-    var [minutes, seconds] = hmsll.split(".");
-    const messlength = +minutes * 60 + +seconds;
-
-    const hmsgll = formData.songlength;
-    var [minutes, seconds] = hmsgll.split(".");
-    const songlength = +minutes * 60 + +seconds;
 
     if (templeteData === "4") {
+      const hms = formData.mstart;
+      var [minutes, seconds] = hms.split(".");
+      const mstart = +minutes * 60 + +seconds;
+
+      const hmsll = formData.messlength;
+      var [minutes, seconds] = hmsll.split(".");
+      const messlength = +minutes * 60 + +seconds;
+      const hmsgll = formData.songlength;
+      var [minutes, seconds] = hmsgll.split(".");
+      const songlength = +minutes * 60 + +seconds;
       try {
         const reqObj = {
           name: formData.name,
@@ -114,6 +113,9 @@ const EditTemplate = () => {
         }
       } catch (error) {}
     } else {
+      const hmsgll = formData.songlength;
+      var [minutes, seconds] = hmsgll.split(".");
+      const songlength = +minutes * 60 + +seconds;
       try {
         const reqObj = {
           name: formData.title,
