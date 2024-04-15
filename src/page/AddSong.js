@@ -259,7 +259,7 @@ const AddSong = () => {
                           </label>
                           <input
                             type="number"
-                            placeholder="Enter Hare"
+                            placeholder="Enter here"
                             className="form-control"
                             value={formData.amount}
                             name="amount"
@@ -408,7 +408,7 @@ const AddSong = () => {
                             value={formData.description}
                             name="description"
                             onChange={handalerChanges}
-                            placeholder="Enter hare"
+                            placeholder="Enter here"
                             class="form-control"
                             rows="3"
                           ></textarea>

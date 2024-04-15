@@ -18,7 +18,7 @@ const initialData = {
 const EditTemplate = () => {
   const navigate = useNavigate();
   const loaction = useLocation();
-  const [chooseTamplete, setChooseTamplete] = useState([]);
+  const [chooseTamplete, setChooseTamplete] = useState("");
 
   // ? Templete Type
   const [isTemplete, setIsTemplete] = useState(false);
@@ -58,7 +58,6 @@ const EditTemplate = () => {
 
   const handalerChanges = async (e) => {
     const { name, value } = e.target;
-
     setFormData({ ...formData, [name]: value });
   };
 
@@ -150,8 +149,7 @@ const EditTemplate = () => {
         loaction.state.id,
         header
       );
-      console.log("responsebyId", responsebyId.data);
-      setChooseTamplete(responsebyId.data[0]);
+      setChooseTamplete(responsebyId.data.data);
       setTampleteType(response.data.data);
     } catch (error) {}
   };
@@ -166,7 +164,7 @@ const EditTemplate = () => {
         tempId: loaction.state.id,
       };
       const response = await API.gettempleteById(reqObj, header);
-      console.log("response", response);
+      console.log("responsesss", response);
       if (response.data.success === 1) {
         setFormData(response.data.data);
       } else {
@@ -195,7 +193,7 @@ const EditTemplate = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-9 col-md-9 col-sm-9 col-12">
-                <h4>Edit Voice Over Templete</h4>
+                <h4>Edit Voice Over Template</h4>
               </div>
             </div>
           </div>
@@ -208,20 +206,26 @@ const EditTemplate = () => {
                     <div className="col-md-6">
                       <div class="form-group">
                         <label>
-                          Templete Type
+                          Change template type to
                           <span class="text-danger">*</span>
                         </label>
                         <select
-                          className="form-control"
+                          className="form-control mb-2"
+                          //value={selectedValue}
                           onChange={templeteType}
                         >
-                          <option>--- Select Templete---</option>
+                          <option>--- Select ---</option>
                           {tampleteType.map((item, index) => (
                             <option key={index} value={item.id}>
                               {item.name}
                             </option>
                           ))}
                         </select>
+                        <span>
+                          <strong className="text-danger">Note : </strong>
+                          Choose existing template if no change is required in
+                          type of template
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -247,7 +251,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Voice-Over Templete
+                              Voice-Over Template
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -448,8 +452,8 @@ const EditTemplate = () => {
                               type="text"
                               class="form-control"
                               placeholder="Enter here"
-                              value={formData.title}
-                              name="title"
+                              value={formData.name}
+                              name="name"
                               onChange={handalerChanges}
                             />
                           </div>
@@ -457,7 +461,7 @@ const EditTemplate = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Voice-Over Templete
+                              Voice-Over Template
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -888,7 +892,7 @@ const EditTemplate = () => {
                 </div>
               </div>
               <div className="col-md-3">
-                <h5 className="mb-3">Templete type Added</h5>
+                <h5 className="mb-3">Existing Template Type</h5>
                 <ul className="typeoftemplete">
                   {chooseTamplete === "" ? (
                     <>

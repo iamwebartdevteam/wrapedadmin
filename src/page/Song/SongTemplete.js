@@ -171,7 +171,7 @@ const SongTemplete = () => {
           <div class="widget-header">
             <div class="row">
               <div class="col-xl-9 col-md-9 col-sm-9 col-12">
-                <h4>Add Voice Over Templete</h4>
+                <h4>Add Voice Over Template</h4>
               </div>
               <div class="col-xl-3 col-md-3 col-sm-3 col-12 text-right">
                 <Link
@@ -179,7 +179,7 @@ const SongTemplete = () => {
                   to="/templete-list"
                   class="btn btn-success mr-2"
                 >
-                  View Templete
+                  View Added Template
                 </Link>
               </div>
             </div>
@@ -193,14 +193,14 @@ const SongTemplete = () => {
                     <div className="col-md-6">
                       <div class="form-group">
                         <label>
-                          Templete Type
+                          Select Template Type
                           <span class="text-danger">*</span>
                         </label>
                         <select
                           className="form-control"
                           onChange={templeteType}
                         >
-                          <option>--- Select Templete---</option>
+                          <option>--- Select Template---</option>
                           {tampleteType.map((item, index) => (
                             <option key={index} value={item.id}>
                               {item.name}
@@ -232,7 +232,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Voice-Over Templete
+                              Voice-Over Template
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -414,7 +414,7 @@ const SongTemplete = () => {
                               onClick={addTemplete}
                               class="btn btn-success mr-2"
                             >
-                              Add Templete
+                              Add Template
                             </button>
                           )}
                         </div>
@@ -442,7 +442,7 @@ const SongTemplete = () => {
                         <div className="col-md-4">
                           <div class="form-group">
                             <label>
-                              Voice-Over Templete
+                              Voice-Over Template
                               <span class="text-danger">*</span>
                             </label>
                             <div id="dropzone">
@@ -571,7 +571,7 @@ const SongTemplete = () => {
                               onClick={addTemplete}
                               class="btn btn-success mr-2"
                             >
-                              Add Templete
+                              Add Template
                             </button>
                           )}
                         </div>
@@ -722,7 +722,7 @@ const SongTemplete = () => {
                         </div>
                         <div className="col-md-12">
                           <button class="btn btn-info mr-2">
-                            Add Templete
+                            Add Template
                           </button>
                         </div>
                       </div>
@@ -856,7 +856,7 @@ const SongTemplete = () => {
                         </div>
                         <div className="col-md-12">
                           <button class="btn btn-info mr-2">
-                            Add Templete
+                            Add Template
                           </button>
                         </div>
                       </div>
@@ -873,7 +873,7 @@ const SongTemplete = () => {
                 </div>
               </div>
               <div className="col-md-3">
-                <h5 className="mb-3">Templete type Added</h5>
+                <h6 className="mb-3">Selected Template Type</h6>
                 <ul className="typeoftemplete">
                   {templeteData === "4" ? (
                     <li>

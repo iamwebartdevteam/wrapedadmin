@@ -26,18 +26,18 @@ const Header = ({ setIsLogin }) => {
           </ul>
           <ul class="navbar-item flex-row ml-md-auto">
             <li class="nav-item dropdown user-profile-dropdown">
-              <a
+              {/* <a
                 href="javascript:void(0);"
-                class="nav-link dropdown-toggle user"
+                class="nav-link dropdown-toggless user"
                 id="userProfileDropdown"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="true"
               >
                 <img src="assets/img/profile-16.jpg" alt="avatar" />
-              </a>
-              <div
-                class="dropdown-menu position-absolute"
+              </a> */}
+              {/* <div
+                class="dropdown-menu  position-absoluted"
                 aria-labelledby="userProfileDropdown"
               >
                 <div class="nav-drop is-account-dropdown">
@@ -100,17 +100,18 @@ const Header = ({ setIsLogin }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </li>
           </ul>
           <ul class="navbar-item flex-row">
             <li class="nav-item dropdown header-setting">
               <a
                 href="javascript:void(0);"
-                class="nav-link dropdown-toggle rightbarCollapse"
+                class="nav-link dropdown-toggle buttom rightbarCollapse text-info"
                 data-placement="bottom"
+                onClick={logoutButton}
               >
-                <i class="las la-sliders-h"></i>
+                <i class="bi bi-box-arrow-right"></i> Logout
               </a>
             </li>
           </ul>
