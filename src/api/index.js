@@ -219,6 +219,7 @@ export const song_templeteAdd = async (data, header) => {
 export const getTempleteType = async (header) => {
   try {
     const url = c.TEMPLETETYPE;
+    console.log("url", url);
     const res = await axios.get(url, {
       headers: JSON.parse(header),
     });
@@ -334,6 +335,7 @@ export const update_songs = async (data, header) => {
 export const getTempleteTypeId = async (data, header) => {
   try {
     const url = c.SIGNUP + "/getTemplate/" + data;
+
     const res = await axios.get(url, data, {
       headers: JSON.parse(header),
     });

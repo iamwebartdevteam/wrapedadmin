@@ -36,6 +36,8 @@ const EditTemplate = () => {
   const [temFileName, setTemFileName] = useState("");
   const [samFile, setSamFile] = useState("");
 
+  const [selectedValue, setSelectedValue] = useState("");
+
   const uploadtemplete = (e) => {
     let images = e.target.files[0];
     setTemFileName(images.name);
@@ -64,7 +66,9 @@ const EditTemplate = () => {
   const addTemplete = async () => {
     setIsTemplete(true);
 
-    if (templeteData === "4") {
+    console.log("selectedValue", selectedValue);
+
+    if (selectedValue === "Intro-Middle-Outro") {
       const hms = formData.mstart;
       var [minutes, seconds] = hms.split(".");
       const mstart = +minutes * 60 + +seconds;
@@ -118,7 +122,7 @@ const EditTemplate = () => {
       const songlength = +minutes * 60 + +seconds;
       try {
         const reqObj = {
-          name: formData.title,
+          name: formData.name,
           temFileName: temFileName,
           samFile: samFile,
           templeteType: templeteData,
@@ -147,18 +151,23 @@ const EditTemplate = () => {
   const getAlltemplete = async () => {
     try {
       const response = await API.getTempleteType(header);
+      console.log("response0", response);
       const responsebyId = await API.getTempleteTypeId(
         loaction.state.id,
         header
       );
+      console.log("responsebyId", responsebyId);
       setChooseTamplete(responsebyId.data.data);
       setTampleteType(response.data.data);
+      setSelectedValue(responsebyId.data.data.templeteType);
     } catch (error) {}
   };
 
   const templeteType = async (e) => {
     const header = localStorage.getItem("_tokenCode");
     const typeData = e.target.value;
+    console.log("typeData", typeData);
+    setSelectedValue(typeData);
     setFormData("");
     try {
       const reqObj = {
@@ -176,9 +185,9 @@ const EditTemplate = () => {
     setChooseTamplete("");
     setTempleteFilea("");
     setSampleData("");
-    if (typeData === "4") {
+    if (typeData === "Intro-Middle-Outro") {
       setTempleteData("4");
-    } else if (typeData === "5") {
+    } else if (typeData === "Intro-Outro" || typeData === "Happy birthday") {
       setTempleteData("5");
     } else if (typeData === "6") {
       setTempleteData("6");
@@ -213,13 +222,13 @@ const EditTemplate = () => {
                         </label>
                         <select
                           className="form-control mb-2"
-                          //value={selectedValue}
+                          value={selectedValue}
                           onChange={templeteType}
                         >
-                          <option>--- Select ---</option>
+                          <option>--- Select --- </option>
                           {tampleteType.map((item, index) => (
-                            <option key={index} value={item.id}>
-                              {item.name}
+                            <option key={index} value={item}>
+                              {item}
                             </option>
                           ))}
                         </select>
