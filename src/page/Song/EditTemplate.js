@@ -66,8 +66,6 @@ const EditTemplate = () => {
   const addTemplete = async () => {
     setIsTemplete(true);
 
-    console.log("selectedValue", selectedValue);
-
     if (selectedValue === "Intro-Middle-Outro") {
       const hms = formData.mstart;
       var [minutes, seconds] = hms.split(".");
@@ -84,7 +82,7 @@ const EditTemplate = () => {
           name: formData.name,
           temFileName: temFileName,
           samFile: samFile,
-          templeteType: templeteData,
+          templeteType: selectedValue ? selectedValue : templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
           mstart: mstart
@@ -159,6 +157,7 @@ const EditTemplate = () => {
       console.log("responsebyId", responsebyId);
       setChooseTamplete(responsebyId.data.data);
       setTampleteType(response.data.data);
+      setFormData(responsebyId.data.data);
       setSelectedValue(responsebyId.data.data.templeteType);
     } catch (error) {}
   };
@@ -166,7 +165,7 @@ const EditTemplate = () => {
   const templeteType = async (e) => {
     const header = localStorage.getItem("_tokenCode");
     const typeData = e.target.value;
-    console.log("typeData", typeData);
+
     setSelectedValue(typeData);
     setFormData("");
     try {
@@ -186,11 +185,11 @@ const EditTemplate = () => {
     setTempleteFilea("");
     setSampleData("");
     if (typeData === "Intro-Middle-Outro") {
-      setTempleteData("4");
+      setTempleteData("Intro-Middle-Outro");
     } else if (typeData === "Intro-Outro" || typeData === "Happy birthday") {
-      setTempleteData("5");
-    } else if (typeData === "6") {
-      setTempleteData("6");
+      setTempleteData("Intro-Outro");
+    } else if (typeData === "Happy birthday") {
+      setTempleteData("Happy birthday");
     }
   };
 
@@ -240,7 +239,8 @@ const EditTemplate = () => {
                       </div>
                     </div>
                   </div>
-                  {templeteData === "4" ? (
+                  {templeteData === "Intro-Middle-Outro" ||
+                  selectedValue === "Intro-Middle-Outro" ? (
                     <>
                       <div className="row">
                         <div className="col-md-4">
@@ -297,7 +297,7 @@ const EditTemplate = () => {
 
                                       {templeteFile
                                         ? temFileName
-                                        : "Upload Templete files here"}
+                                        : formData.temFileName}
                                     </span>
                                     <input
                                       hidden
@@ -347,10 +347,7 @@ const EditTemplate = () => {
                                       ) : (
                                         ""
                                       )}
-
-                                      {sampleData
-                                        ? samFile
-                                        : "Upload Sample files here"}
+                                      {sampleData ? samFile : formData.samFile}
                                     </span>
                                     <input
                                       hidden
@@ -450,7 +447,8 @@ const EditTemplate = () => {
                         </div>
                       </div>
                     </>
-                  ) : templeteData === "5" || templeteData === "6" ? (
+                  ) : selectedValue === "Happy birthday" ||
+                    selectedValue === "Intro-Outro" ? (
                     <>
                       <div className="row">
                         <div className="col-md-4">
@@ -507,7 +505,7 @@ const EditTemplate = () => {
 
                                       {templeteFile
                                         ? temFileName
-                                        : "Upload Templete files here"}
+                                        : formData.temFileName}
                                     </span>
                                     <input
                                       hidden
@@ -557,10 +555,7 @@ const EditTemplate = () => {
                                       ) : (
                                         ""
                                       )}
-
-                                      {sampleData
-                                        ? samFile
-                                        : "Upload Sample files here"}
+                                      {sampleData ? samFile : formData.samFile}
                                     </span>
                                     <input
                                       hidden
@@ -907,17 +902,17 @@ const EditTemplate = () => {
                 <ul className="typeoftemplete">
                   {chooseTamplete === "" ? (
                     <>
-                      {templeteData === "4" ? (
+                      {selectedValue === "Intro-Middle-Outro" ? (
                         <li>
                           <CheckCircle color="green" size="20" />
                           <span>Intro-Middle-Outro</span>
                         </li>
-                      ) : templeteData === "6" ? (
+                      ) : selectedValue === "Intro-Outro" ? (
                         <li>
                           <CheckCircle color="green" size="20" />
                           <span>Intro-Outro</span>
                         </li>
-                      ) : templeteData === "5" ? (
+                      ) : selectedValue === "Happy birthday" ? (
                         <li>
                           <CheckCircle color="green" size="20" />
                           <span>Happy birthday</span>

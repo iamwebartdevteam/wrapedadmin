@@ -11,7 +11,7 @@ const initialData = {
   mstart: "",
   messlength: "",
   songlength: "",
-  title: "",
+  name: "",
   amount: "",
 };
 
@@ -34,7 +34,7 @@ const SongTemplete = () => {
 
   const [temFileName, setTemFileName] = useState("");
   const [samFile, setSamFile] = useState("");
-
+  console.log("setTampleteType", formData.name);
   const uploadtemplete = (e) => {
     let images = e.target.files[0];
     setTemFileName(images.name);
@@ -62,22 +62,23 @@ const SongTemplete = () => {
 
   const addTemplete = async () => {
     setIsTemplete(true);
-    const hms = formData.mstart;
-    var [minutes, seconds] = hms.split(".");
-    const mstart = +minutes * 60 + +seconds;
 
-    const hmsll = formData.messlength;
-    var [minutes, seconds] = hmsll.split(".");
-    const messlength = +minutes * 60 + +seconds;
+    if (templeteData === "Intro-Middle-Outro") {
+      const hms = formData.mstart;
+      var [minutes, seconds] = hms.split(".");
+      const mstart = +minutes * 60 + +seconds;
 
-    const hmsgll = formData.songlength;
-    var [minutes, seconds] = hmsgll.split(".");
-    const songlength = +minutes * 60 + +seconds;
+      const hmsll = formData.messlength;
+      var [minutes, seconds] = hmsll.split(".");
+      const messlength = +minutes * 60 + +seconds;
 
-    if (templeteData === "4") {
+      const hmsgll = formData.songlength;
+      var [minutes, seconds] = hmsgll.split(".");
+      const songlength = +minutes * 60 + +seconds;
+
       try {
         const reqObj = {
-          name: formData.title,
+          name: formData.name,
           temFileName: temFileName,
           samFile: samFile,
           templeteType: templeteData,
@@ -114,15 +115,22 @@ const SongTemplete = () => {
         }
       } catch (error) {}
     } else {
+      const hmsgll = formData.songlength;
+      var [minutes, seconds] = hmsgll.split(".");
+      const songlength = +minutes * 60 + +seconds;
       try {
         const reqObj = {
-          name: formData.title,
+          name: formData.name,
           temFileName: temFileName,
           samFile: samFile,
           templeteType: templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
-          songlength: formData.songlength,
+          songlength: songlength
+            ? songlength
+            : formData.songlength > 60
+            ? songlength
+            : formData.songlength,
           song: loaction.state.id,
         };
         console.log("$%reqObj", reqObj);
@@ -148,14 +156,15 @@ const SongTemplete = () => {
 
   const templeteType = (e) => {
     const typeData = e.target.value;
+    setTempleteData(typeData);
     setTempleteFilea("");
     setSampleData("");
-    if (typeData === "4") {
-      setTempleteData("4");
-    } else if (typeData === "5") {
-      setTempleteData("5");
-    } else if (typeData === "6") {
-      setTempleteData("6");
+    if (typeData === "Intro-Middle-Outro") {
+      setTempleteData("Intro-Middle-Outro");
+    } else if (typeData === "Happy birthday") {
+      setTempleteData("Happy birthday");
+    } else if (typeData === "Intro-Outro") {
+      setTempleteData("Intro-Outro");
     }
     console.log("typeData", typeData);
   };
@@ -201,15 +210,15 @@ const SongTemplete = () => {
                         >
                           <option>--- Select Template---</option>
                           {tampleteType.map((item, index) => (
-                            <option key={index} value={item.id}>
-                              {item.name}
+                            <option key={index} value={item}>
+                              {item}
                             </option>
                           ))}
                         </select>
                       </div>
                     </div>
                   </div>
-                  {templeteData === "4" ? (
+                  {templeteData === "Intro-Middle-Outro" ? (
                     <>
                       <div className="row">
                         <div className="col-md-4">
@@ -222,8 +231,8 @@ const SongTemplete = () => {
                               type="text"
                               class="form-control"
                               placeholder="Enter here"
-                              value={formData.title}
-                              name="title"
+                              value={formData.name}
+                              name="name"
                               onChange={handalerChanges}
                             />
                           </div>
@@ -419,7 +428,8 @@ const SongTemplete = () => {
                         </div>
                       </div>
                     </>
-                  ) : templeteData === "5" || templeteData === "6" ? (
+                  ) : templeteData === "Happy birthday" ||
+                    templeteData === "Intro-Outro" ? (
                     <>
                       <div className="row">
                         <div className="col-md-4">
@@ -432,8 +442,8 @@ const SongTemplete = () => {
                               type="text"
                               class="form-control"
                               placeholder="Enter here"
-                              value={formData.title}
-                              name="title"
+                              value={formData.name}
+                              name="name"
                               onChange={handalerChanges}
                             />
                           </div>
