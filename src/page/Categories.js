@@ -44,6 +44,7 @@ const Categories = () => {
     setCategoriData(categoriId);
     try {
       const response = await API.subCategoryId(categoriId, header);
+      console.log("responsedfdg", response);
       setTableData(response.data.data);
     } catch (error) {}
   };
@@ -165,10 +166,7 @@ const Categories = () => {
                             <td>{item.name}</td>
                             <td>{item.details}</td>
                             <td>
-                              <img
-                                className="w-25"
-                                src={IMG + "/" + item.image}
-                              />
+                              <img className="w-25" src={IMG + item.image} />
                             </td>
                             <td>
                               <div className="d-flex justify-content-center">

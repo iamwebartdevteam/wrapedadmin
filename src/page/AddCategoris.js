@@ -17,6 +17,7 @@ const AddCategoris = () => {
   const [catagoriId, setCatagoriId] = useState("");
   const [catagoriData, setCatagoriData] = useState([]);
   const [fileName, setFileName] = useState("");
+
   const imageUploading = (e) => {
     let images = e.target.files[0];
     setFileName(images.name);
@@ -47,6 +48,7 @@ const AddCategoris = () => {
         details: formData.details,
         category: catagoriId,
         image: imageData,
+        fileName: fileName,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_subCategory(reqObj, header);

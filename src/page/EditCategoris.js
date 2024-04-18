@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { header } from "../schemas/Validation";
+import { IMG } from "../api/constant";
 const initialData = {
   name: "",
   details: "",
@@ -56,14 +57,14 @@ const EditCategoris = () => {
   };
 
   const add_subcatagori = async () => {
-    console.log("catagoriId", catagoriId);
     try {
       const reqObj = {
         name: formData.name,
         details: formData.details,
-        category_id: catagoriId === "" ? formData.catagoriId : catagoriId,
+        category: catagoriId === "" ? formData.category : catagoriId,
         image: imageData,
         id: location.state.id,
+        fileName: fileName,
       };
       console.log("reqObj", reqObj);
       const response = await API.subCategoryId_edit(reqObj, header);
@@ -126,6 +127,13 @@ const EditCategoris = () => {
                   <label>
                     Choose category
                     <span class="text-danger">*</span>
+                    <span>
+                      {" "}
+                      Current selection{" "}
+                      <strong className="text-danger">
+                        {formData.category_name}
+                      </strong>
+                    </span>
                   </label>
                   <select
                     onChange={handalerChanges}
@@ -163,11 +171,7 @@ const EditCategoris = () => {
                             </>
                           ) : (
                             <>
-                              <span class="dz-button">Upload files here.</span>
-                              <br />
-                              <span class="note needsclick">
-                                (This is a Uploadzone. Browse your files)
-                              </span>
+                              <span class="dz-button">{formData.fileName}</span>
                             </>
                           )}
 
@@ -185,7 +189,10 @@ const EditCategoris = () => {
                 </div>
               </div>
               <div className="col-md-6">
-                <img className="thumImg" src={imageData} />
+                <img
+                  className="thumImg"
+                  src={imageData ? imageData : IMG + formData.image}
+                />
               </div>
               <div className="col-md-12">
                 <div class="form-group">

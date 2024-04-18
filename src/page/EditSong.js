@@ -30,7 +30,7 @@ const EditSong = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
-  console.log("formData", formData);
+
   const [catagoriData, setCatagoriData] = useState([]);
   const [fileName, setFileName] = useState("");
   const [thumFilename, setThumFilename] = useState("");
