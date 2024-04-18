@@ -167,7 +167,16 @@ export const template_listing = async (data, header) => {
     return e.response;
   }
 };
+export const dashboardData = async () => {
+  try {
+    const url = c.URL + "/dashboard-counts";
 
+    const res = await axios.get(url);
+    return res;
+  } catch (e) {
+    return e.response;
+  }
+};
 export const song_catagoriId = async (header) => {
   try {
     const url = c.SONGS;

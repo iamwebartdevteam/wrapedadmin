@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Order from "../page/Order";
-
+import * as API from "../api/index";
 const Dashboard = () => {
+  const [data, setData] = useState([]);
+  const commonDataTable = async () => {
+    const header = localStorage.getItem("_tokenCode");
+    try {
+      const response = await API.dashboardData(header);
+      console.log("response", response);
+      setData(response.data.data);
+    } catch (error) {}
+  };
+  useEffect(() => {
+    commonDataTable();
+  }, []);
+
   return (
     <>
       <div class="layout-px-spacing">
@@ -18,7 +31,7 @@ const Dashboard = () => {
                   <h5 class="font-size-14 mb-0">Orders</h5>
                 </div>
                 <div class="text-muted mt-3">
-                  <h3 class="mb-2">1,452</h3>
+                  <h3 class="mb-2">{data.total_orders}</h3>
                 </div>
               </div>
             </div>
@@ -33,7 +46,7 @@ const Dashboard = () => {
                   <h5 class="font-size-14 mb-0">Profit</h5>
                 </div>
                 <div class="text-muted mt-3">
-                  <h3 class="mb-2">$200</h3>
+                  <h3 class="mb-2">${data.total_order_amount}</h3>
                 </div>
               </div>
             </div>
@@ -48,7 +61,7 @@ const Dashboard = () => {
                   <h5 class="font-size-14 mb-0">Customer</h5>
                 </div>
                 <div class="text-muted mt-3">
-                  <h3 class="mb-2">9,887</h3>
+                  <h3 class="mb-2">{data.total_users}</h3>
                 </div>
               </div>
             </div>
