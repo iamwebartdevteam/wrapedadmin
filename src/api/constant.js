@@ -1,6 +1,6 @@
 export const CURRENCY = "$";
 export const TIMEZONE = "America/Los_Angeles";
-export const IMG = "https://webarttechnology.co.in";
+export const IMG = "https://admin.wrappedinmusic.com";
 // ? ====== BASE URL ======
 //export const URL = "https://webarttechnology.co.in/admin";
 export const CONTACTUS = "https://admin.wrappedinmusic.com/backend";

@@ -123,7 +123,7 @@ const EditTemplate = () => {
           name: formData.name,
           temFileName: temFileName,
           samFile: samFile,
-          templeteType: templeteData,
+          templeteType: selectedValue ? selectedValue : templeteData,
           templateFile: templeteFile,
           sampleData: sampleData,
           songlength: songlength
@@ -204,6 +204,11 @@ const EditTemplate = () => {
             <div class="row">
               <div class="col-xl-9 col-md-9 col-sm-9 col-12">
                 <h4>Edit Voice Over Template</h4>
+              </div>
+              <div class="col-xl-9 col-md-9 col-sm-9 col-12">
+                <Link className="btn btn-success mr-2" to="/templete-list">
+                  Back
+                </Link>
               </div>
             </div>
           </div>
@@ -297,7 +302,9 @@ const EditTemplate = () => {
 
                                       {templeteFile
                                         ? temFileName
-                                        : formData.temFileName}
+                                        : formData.temFileName
+                                        ? formData.temFileName
+                                        : "Upload Voice Over files here"}
                                     </span>
                                     <input
                                       hidden
@@ -347,7 +354,11 @@ const EditTemplate = () => {
                                       ) : (
                                         ""
                                       )}
-                                      {sampleData ? samFile : formData.samFile}
+                                      {sampleData
+                                        ? samFile
+                                        : formData.samFile
+                                        ? formData.samFile
+                                        : "Upload Sample files here"}
                                     </span>
                                     <input
                                       hidden
@@ -505,7 +516,9 @@ const EditTemplate = () => {
 
                                       {templeteFile
                                         ? temFileName
-                                        : formData.temFileName}
+                                        : formData.temFileName
+                                        ? formData.temFileName
+                                        : "Upload Voice Over files here"}
                                     </span>
                                     <input
                                       hidden
@@ -555,7 +568,11 @@ const EditTemplate = () => {
                                       ) : (
                                         ""
                                       )}
-                                      {sampleData ? samFile : formData.samFile}
+                                      {sampleData
+                                        ? samFile
+                                        : formData.samFile
+                                        ? formData.samFile
+                                        : "Upload Sample files here"}
                                     </span>
                                     <input
                                       hidden

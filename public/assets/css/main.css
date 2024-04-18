@@ -11361,3 +11361,7 @@ a.text-primary:hover {
 .buttom i {
   color: #be3030 !important;
 }
+.thumImg {
+  width: 20%;
+  border-radius: 5px;
+}

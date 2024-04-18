@@ -9,6 +9,7 @@ import { MESSAGE, header } from "../schemas/Validation";
 import { toast } from "react-toastify";
 import { CheckCircle } from "react-feather";
 import SongTemplete from "./Song/SongTemplete";
+import { IMG } from "../api/constant";
 const initialData = {
   name: "",
   category_id: "",
@@ -29,7 +30,7 @@ const EditSong = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState(initialData);
   const [imageData, setImageData] = useState("");
-
+  console.log("formData", formData);
   const [catagoriData, setCatagoriData] = useState([]);
   const [fileName, setFileName] = useState("");
   const [thumFilename, setThumFilename] = useState("");
@@ -90,6 +91,7 @@ const EditSong = () => {
         image: songThumb,
         id: loaction.state.id,
         filename: fileName,
+        thumFilename: thumFilename,
       };
       console.log("reqObj", reqObj);
       const response = await API.update_songs(reqObj, header);
@@ -341,6 +343,8 @@ const EditSong = () => {
                                     )}
                                     {imageData
                                       ? fileName
+                                      : formData.filename
+                                      ? formData.filename
                                       : "Upload MP3 files here"}
                                   </span>
                                   <input
@@ -391,6 +395,8 @@ const EditSong = () => {
 
                                     {songThumb
                                       ? thumFilename
+                                      : formData.thumFilename
+                                      ? formData.thumFilename
                                       : "Upload thumbnail files here"}
                                   </span>
                                   <input
@@ -405,6 +411,12 @@ const EditSong = () => {
                             </form>
                           </div>
                         </div>
+                      </div>
+                      <div className="col-md-6">
+                        <img
+                          className="thumImg"
+                          src={songThumb ? songThumb : IMG + formData.image}
+                        />
                       </div>
                       <div className="col-md-12">
                         <div class="form-group">

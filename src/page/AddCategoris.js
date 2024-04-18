@@ -114,7 +114,7 @@ const AddCategoris = () => {
                   </select>
                 </div>
               </div>
-              <div className="col-md-12">
+              <div className="col-md-6">
                 <div class="form-group">
                   <label>
                     Images
@@ -155,6 +155,9 @@ const AddCategoris = () => {
                     </form>
                   </div>
                 </div>
+              </div>
+              <div className="col-md-6">
+                <img className="thumImg" src={imageData} />
               </div>
               <div className="col-md-12">
                 <div class="form-group">

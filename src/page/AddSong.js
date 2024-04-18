@@ -126,6 +126,7 @@ const AddSong = () => {
         amount: formData.amount,
         image: songThumb,
         filename: fileName,
+        thumFilename: thumFilename,
       };
       console.log("reqObj", reqObj);
       const response = await API.add_songs(reqObj, header);
@@ -397,6 +398,9 @@ const AddSong = () => {
                             </form>
                           </div>
                         </div>
+                      </div>
+                      <div className="col-md-6">
+                        <img className="thumImg" src={songThumb} />
                       </div>
                       <div className="col-md-12">
                         <div class="form-group">
