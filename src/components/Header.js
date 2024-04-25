@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ setIsLogin }) => {
+const Header = ({ setIsLogin, heandal }) => {
   const navigate = useNavigate();
   const logoutButton = () => {
     localStorage.removeItem("isLogin");
@@ -17,10 +17,13 @@ const Header = ({ setIsLogin }) => {
           <ul class="navbar-item flex-row ml-md-0 ml-auto theme-brand">
             <li class="nav-item align-self-center">
               <div class="d-flex flex-row align-center justify-content-center logo-area">
-                <a href="index.html" class="nav-link pr-4 d-none d-md-block">
+                <a href="#" class="nav-link pr-4 d-none d-md-block">
                   {" "}
                   Wrapped In Music{" "}
                 </a>
+                <button onClick={heandal}>
+                  <i class="bi bi-list"></i>
+                </button>
               </div>
             </li>
           </ul>

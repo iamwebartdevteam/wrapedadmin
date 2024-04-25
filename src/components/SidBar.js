@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
-const SidBar = () => {
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
-  const toggleOpenData = () => {
-    setIsOpenMenu(!isOpenMenu);
-  };
+const SidBar = ({ isOpen }) => {
   return (
     <>
-      <div class="sidebar-wrapper sidebar-theme">
+      <div class={isOpen ? "d-none" : "sidebar-wrapper sidebar-theme"}>
         <nav id="sidebar">
           <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">

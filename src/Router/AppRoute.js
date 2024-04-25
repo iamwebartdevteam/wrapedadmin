@@ -29,8 +29,11 @@ import EditAbout from "../page/EditAbout";
 import Contact from "../page/Contact/ContactList";
 import ContactList from "../page/Contact/ContactList";
 const AppRoute = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isLogin, setIsLogin] = useState(localStorage.getItem("isLogin"));
-
+  const heandal = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
       <Router>
@@ -40,9 +43,9 @@ const AppRoute = () => {
               <div class="overlay"></div>
               <div class="search-overlay"></div>
               <div class="rightbar-overlay"></div>
-              <SidBar />
+              <SidBar isOpen={isOpen} />
               <div id="content" class="main-content">
-                <Header setIsLogin={setIsLogin} />
+                <Header heandal={heandal} setIsLogin={setIsLogin} />
                 <SubHeader />
                 <Routes>
                   <Route path="/" element={<Base />} />
