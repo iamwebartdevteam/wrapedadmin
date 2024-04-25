@@ -11365,3 +11365,9 @@ a.text-primary:hover {
   width: 20%;
   border-radius: 5px;
 }
+.toggleBtn {
+  background-color: #ffffff;
+  border: none;
+  font-size: 25px;
+  color: #650808;
+}

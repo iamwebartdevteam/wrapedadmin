@@ -45,7 +45,11 @@ const AppRoute = () => {
               <div class="rightbar-overlay"></div>
               <SidBar isOpen={isOpen} />
               <div id="content" class="main-content">
-                <Header heandal={heandal} setIsLogin={setIsLogin} />
+                <Header
+                  isOpen={isOpen}
+                  heandal={heandal}
+                  setIsLogin={setIsLogin}
+                />
                 <SubHeader />
                 <Routes>
                   <Route path="/" element={<Base />} />

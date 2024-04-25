@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Header = ({ setIsLogin, heandal }) => {
+const Header = ({ setIsLogin, heandal, isOpen }) => {
   const navigate = useNavigate();
   const logoutButton = () => {
     localStorage.removeItem("isLogin");
@@ -21,8 +21,12 @@ const Header = ({ setIsLogin, heandal }) => {
                   {" "}
                   Wrapped In Music{" "}
                 </a>
-                <button onClick={heandal}>
-                  <i class="bi bi-list"></i>
+                <button className="toggleBtn" onClick={heandal}>
+                  {isOpen ? (
+                    <i class="bi bi-x-lg"></i>
+                  ) : (
+                    <i class="bi bi-list"></i>
+                  )}
                 </button>
               </div>
             </li>

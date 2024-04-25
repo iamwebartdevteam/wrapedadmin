@@ -4,7 +4,13 @@ import { Tooltip } from "react-tooltip";
 const SidBar = ({ isOpen }) => {
   return (
     <>
-      <div class={isOpen ? "d-none" : "sidebar-wrapper sidebar-theme"}>
+      <div
+        class={
+          isOpen
+            ? "anislid sidebar-wrapper sidebar-theme"
+            : " sidebar-wrapper sidebar-theme"
+        }
+      >
         <nav id="sidebar">
           <ul class="list-unstyled menu-categories" id="accordionExample">
             <li class="menu">

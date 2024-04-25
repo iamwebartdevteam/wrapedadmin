@@ -19,7 +19,7 @@ const SubHeader = () => {
                       <a href="javascript:void(0);">Dashboards</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                      <span>Dashboard 1</span>
+                      <span>Dashboard</span>
                     </li>
                   </ol>
                 </nav>
